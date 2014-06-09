@@ -23,6 +23,7 @@ group :production do
   gem 'rails_12factor'
 end
 
+gem 'pg'
 gem 'sass-rails'
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
@@ -31,7 +32,6 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
-gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'wicked'
 gem 'unicorn', require: false
 gem 'figaro'

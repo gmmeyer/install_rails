@@ -1,0 +1,26 @@
+# PostgreSQL. Versions 8.2 and up are supported.
+#
+# Install the pg driver:
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: InstallRails_development
+  pool: 5
+  username: greg
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: InstallRails_test
+  pool: 5
+  username: greg
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: InstallRails_production
+  pool: 5
+  username: greg
+  password:
