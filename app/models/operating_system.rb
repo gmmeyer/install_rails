@@ -1,4 +1,4 @@
 class OperatingSystem < ActiveRecord::Base
-  has_many :install_steps
-  has_many :steps, through: :install_steps
+  has_many :step_orders
+  has_many :steps, through: :step_order
 end

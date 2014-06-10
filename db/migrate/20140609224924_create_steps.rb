@@ -1,9 +1,10 @@
 class CreateSteps < ActiveRecord::Migration
   def change
     create_table :steps do |t|
-      # the text is just a placeholder for the moment.
-      t.string :title
-      t.text :content
+      t.integer :previous_step_id
+      t.integer :step_content_id
+      t.boolean :final_step
+      t.string :choice
 
       t.timestamps
     end

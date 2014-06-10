@@ -1,0 +1,35 @@
+<% content_for(:header) do %>
+  <header>
+    <div class="container">
+      <%= link_to (content_tag(:p, nil, class: "icon-beaker") + " InstallRails.com"), root_path, class: "site-title" %>
+    </div>
+  </header>
+<% end %>
+
+<% content_for(:content) do %>
+  <% if content_for?(:sidebar) %>
+    <div class="row">
+      <div class="col-lg-8">
+        <%= yield %>
+      </div>
+      <div class="col-lg-4">
+        <div class="sidebar well" data-spy="affix" data-offset-top="80" data-offset-bottom="400">
+          <%= yield(:sidebar) %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <%= yield %>
+  <% end %>
+
+
+<% end %>
+
+<% content_for(:footer) do %>
+    &copy; 2013 One Month Rails
+  <!-- <%= debug(wizard_steps) if Rails.env.development? %> -->
+<% end %>
+
+<%= render template: "layouts/application" %>
+
+
