@@ -35,3 +35,4 @@ gem 'jbuilder', '~> 1.2'
 gem 'wicked'
 gem 'unicorn', require: false
 gem 'figaro'
+gem 'cancancan'

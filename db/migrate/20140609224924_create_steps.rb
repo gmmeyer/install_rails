@@ -2,6 +2,7 @@ class CreateSteps < ActiveRecord::Migration
   def change
     create_table :steps do |t|
       # the text is just a placeholder for the moment.
+      t.string :title
       t.text :content
 
       t.timestamps
