@@ -22,11 +22,12 @@ describe SessionsHelper do
 
     context "It creates a user as a guest by default" do
       it "should have guest equal to true" do
-        guest_user.guest.should be_true
+        expect(guest_user.guest).to be_truthy
       end
 
       it "should be the current user" do
-        guest_user.should be(current_user)
+        expect(guest_user).to be(current_user)
       end
     end
   end
+end

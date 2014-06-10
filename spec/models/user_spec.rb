@@ -11,11 +11,11 @@ describe User do
       end
 
       it "should be valid" do
-        user.should be_valid
+        expect(user).to be_valid
       end
 
       it "should be a guest" do
-        user.guest.should be_true
+        expect(user.guest).to be_truthy
       end
 
     end
