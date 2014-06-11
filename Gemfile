@@ -37,3 +37,4 @@ gem 'wicked'
 gem 'unicorn', require: false
 gem 'figaro'
 gem 'cancancan'
+gem 'sanitize'
