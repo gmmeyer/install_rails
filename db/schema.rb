@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20140610164812) do
   enable_extension "plpgsql"
 
   create_table "operating_systems", force: true do |t|
-    t.string   "type"
+    t.string   "brand"
     t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(version: 20140610164812) do
   create_table "steps", force: true do |t|
     t.integer  "previous_step_id"
     t.integer  "step_content_id"
+    t.integer  "operating_system_id"
     t.boolean  "final_step"
+    t.boolean  "first_step"
     t.string   "choice"
     t.datetime "created_at"
     t.datetime "updated_at"

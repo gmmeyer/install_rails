@@ -9,10 +9,12 @@ describe StepContent do
     end
 
     it "should not allow scripts" do
-      
     end
 
     it "should allow image tags" do
+    end
+
+    it "should strip classes from tags" do
     end
 
     it "should allow strong tags" do

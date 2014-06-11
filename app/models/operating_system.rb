@@ -1,4 +1,6 @@
 class OperatingSystem < ActiveRecord::Base
-  has_many :step_orders
-  has_many :steps, through: :step_order
+  has_many :steps
+  has_many :step_contents, through: :steps
+
+  validates :brand, :version, presence: true
 end
