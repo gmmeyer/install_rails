@@ -9,6 +9,7 @@ class Step < ActiveRecord::Base
   validates :operating_system_id, presence: true
   validate :check_previous_steps
   validate :check_siblings
+  validate :check_children
 
   def final_step?
     self.final_step
@@ -48,11 +49,23 @@ class Step < ActiveRecord::Base
     end 
   end
 
+  def check_children
+    if self.prompt
+      return
+    elsif self.next_steps.count > 1
+      errors.add(:prompt, "You must have a prompt so that the user can choose between multiple child steps")
+    end
+  end
+
   def check_siblings
-    if self.previous_step
+    if self.choice
+      return
+    elsif self.button_text
+      return
+    elsif self.previous_step
       self.previous_step.next_steps.each do |step|
         if step.id != self.id
-          errors.add(:choice, "You cannot have multiple siblings without having a choice")
+          errors.add(:choice, "You cannot have multiple siblings without having a choice or button text")
           break
         end
       end
