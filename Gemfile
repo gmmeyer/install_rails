@@ -25,7 +25,7 @@ group :production do
 end
 
 gem 'pg'
-gem 'sass-rails'
+gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem 'uglifier', '>= 1.3.0'

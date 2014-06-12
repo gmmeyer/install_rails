@@ -1,7 +1,7 @@
 InstallRails::Application.routes.draw do
 
   resources :sessions, only: :destroy
-  resources :install_steps, path: 'steps'
+  # resources :install_steps, path: 'steps'
   root 'welcome#index'
 
   resources :steps

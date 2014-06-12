@@ -23,8 +23,7 @@ html = <<-HTML
   </ol>
 HTML
 
-content = StepContent.find_by(title: "Choose OS Version")
-previous_step = content.steps[0]
+previous_step = StepContent.find_by(title: "Choose OS Version").steps[0]
 
 content = StepContent.create(title: "Install XCode", content: html)
 

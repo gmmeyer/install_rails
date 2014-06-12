@@ -9,4 +9,4 @@ HTML
 
 step_content = StepContent.create(title: "Choose OS", content: html)
 
-Step.create(first_step: true, step_content_id: step_content.id, operating_system_id: 'NA', prompt: "NA")
+Step.create(first_step: true, step_content_id: step_content.id, operating_system_id: 'NA', prompt: "NA", mixpanel: "choose_your_os")

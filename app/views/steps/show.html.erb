@@ -1,52 +1,62 @@
 <section class="instructions">
-  <%= @step.step_content.content %>
+  <%= @step.step_content.content.html_safe %>
 </section>
 
-<% if @step.first_step %>
+
+<% if @step.final_step? %>
+  <section class="prompt center">
+    <%= link_to "Previous Step", step_path(@step.previous_step), class:"option" %>
+  </section>
+
+<% elsif @step.first_step %>
   <section class="center prompt row">
     <div class="apple col-sm-4">
-      <img src="mac_steps/apple.png" class="choose_your_os">
+      <img src="/mac_steps/apple.png" class="choose_your_os">
       <br>
-      <link rel="alternate" href="<%= steps_path(next_step('Mac')) %>" class="option">
+      <a rel="alternate" href="<%= step_path(@step.next_step(user_choice = 'Mac').id) %>" class="option">Mac</a>
     </div>
     <div class="windows col-sm-4">
-    <img src="mac_steps/microsoft.png" class="choose_your_os">
+    <img src="/mac_steps/microsoft.png" class="choose_your_os">
       <br>
-      <link rel="alternate" href="<%= steps_path(next_step('Windows')) %>" class="option">
+      <a rel="alternate" href="<%= step_path(@step.next_step(user_choice = 'Windows').id)%>" class="option">Windows</a>
     </div>
     <div class="other col-sm-4">
-      <img src="mac_steps/linux-logo.jpg" class="choose_your_os">
+      <img src="/mac_steps/linux-logo.jpg" class="choose_your_os">
       <br>
-      <link rel="alternate" href="<%= steps_path(next_step('Other')) %>" class="option">
+      <a rel="alternate" href="<%= step_path(@step.next_step(user_choice = 'Other').id) %>" class="option">Other</a>
     </div>
   </section>
-<% end %>
 
-<section class="prompt center">
-  <% if @step.final_step? %>
-
-  <% elsif @step.next_steps.count == 1 %>
+<% elsif @step.next_steps.count == 1 %>
+  <section class="prompt center">
     <%= link_to "Previous Step", step_path(@step.previous_step), class:"option" %>
     <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
     <%= link_to "Next Step",     step_path(@step.next_step),     class: "option" %>
-  <% else %>
-  <h2>
-    <% @step.prompt %>
-  </h2>
-  <% @step.next_steps.each do |step| %>
-    <% button_to  step.button_text, step_path(step) %>
-  <% end %>
-     <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
-  <% end %>
-</section>
+  </section>
+<% else %>
+  <section class="prompt center">
+    <h2>
+      <% unless @step.prompt == "NA"  %>
+        <% @step.prompt %>
+      <% end %>
+    </h2>
+    <% @step.next_steps.each do |step| %>
+      <%= link_to  step.button_text, step_path(step), class: "option" %>
+    <% end %>
+       <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
+   </section>
+<% end %>
 
 <div id="trouble" class="collapse out note">
+  <% if @step.try('trouble') %>
+    <%= @step.trouble.html_safe %>
+  <% end %>
   <div class="disqus">
     <%= render 'layouts/disqus' %>
   </div>
 </div>
 
-<% if @step.mixpanel %>
+<% if @step.try('mixpanel') %>
 <script>
   mixpanel.track(@step.mixpanel);
 </script>

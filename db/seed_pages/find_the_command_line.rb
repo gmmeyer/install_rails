@@ -69,10 +69,7 @@ HTML
 
 step_content = StepContent.create(title: "Find The Command Line", content: html)
 
-content = StepContent.find_by(title: "Install XCode")
-previous_steps = content.steps
-content = StepContent.find_by(title: "RailsInstaller")
-previous_steps << content.steps 
+previous_steps = Step.joins(:step_content).where("step_contents.title = 'Install XCode' OR step_contents.title = 'RailsInstaller'")
 
 previous_steps.each do |step|
 

@@ -46,13 +46,17 @@ HTML
 
 step_content = StepContent.create(title: "RailsInstaller", content: html)
 
-previous_step = Step.find_by(first_step: true)
+# previous_step = Step.find_by(first_step: true)
 
-Step.create(step_content_id: step_content.id, previous_step_id: previous_step, operating_system_id: @windows.id)
+# windows = OperatingSystem.find_by(brand: "Windows")
 
-previous_step = Step.find_by(operating_system_id: "Mac")
+# Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id, operating_system_id: windows.id, button_text: 'NA')
 
-@middle_macs.each do |mac|
+previous_step = Step.joins(:step_content).where("step_contents.title = 'Choose OS Version'")[0]
+
+middle_macs = OperatingSystem.where("version = '10.8' or version = '10.7' or version= '10.6'")
+
+middle_macs.each do |mac|
 
   Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id, operating_system_id: mac.id, button_text: mac.version)
 

@@ -2,18 +2,25 @@ class StepsController < ApplicationController
 
   before_filter :signed_in_user, only: [:show]
 
+  def new
+    @step = Step.new
+  end
+
   def show
-    # I need to override that customization
-    @step = Step.find_by(step_name: params[:id])
+    @step = Step.find(params[:id])
   end
 
   def edit
+    @step = Step.find(params[:id])
   end
 
   def update
+
   end
 
   def delete
+    @step = Step.find(params[:id])
+    @step.destroy
   end
 
 
