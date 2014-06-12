@@ -49,6 +49,15 @@ describe StepContent do
       step_content.save
       expect(step_content.content).to eql(stripped_text + "<strong>asdf</strong>")
     end
+
+    it "should sanitize the trouble field as well" do
+      script_tags = stripped_text + "<script></script>"
+      step_content.content = stripped_text
+      step_content.trouble = script_tags
+
+      step_content.save
+      expect(step_content.trouble).to eql(stripped_text)
+    end
   end
 
   context "Step content should be valid" do

@@ -5,6 +5,7 @@ class StepContent < ActiveRecord::Base
   before_create :set_friendly_name
 
   before_validation :sanitize_content
+  before_validation :sanitize_trouble
 
   validates :title, :content, presence: true
 
@@ -23,18 +24,34 @@ class StepContent < ActiveRecord::Base
   end
 
   def sanitize_content
+    if self.trouble
+      self.content = Sanitize.clean(self.content, 
+        elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div", "small", "p", "i", "hr"], 
+        attributes: {'a' => ["target", "href", "title", "class", :data], 
+          'img' => ['alt', 'title', 'src', "class", "style"], 
+          "div" => ["class"], "h2" => ["style"],
+          "p" => ["style"]
+          },
+        protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] },
+                                'img' => {'href' => ['http', 'https', 'mailto'] } 
+                              } 
+        )
+    end
+  end
 
-    self.content = Sanitize.clean(self.content, 
-      elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div", "small", "p", "i", "hr"], 
-      attributes: {'a' => ["target", "href", "title", "class", :data], 
-        'img' => ['alt', 'title', 'src', "class", "style"], 
-        "div" => ["class"], "h2" => ["style"],
-        "p" => ["style"]
-        },
-      protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] },
-                              'img' => {'href' => ['http', 'https', 'mailto'] } 
-                            } 
-      )
-
+  def sanitize_trouble
+    if self.trouble
+      self.content = Sanitize.clean(self.content, 
+        elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div", "small", "p", "i", "hr"], 
+        attributes: {'a' => ["target", "href", "title", "class", :data], 
+          'img' => ['alt', 'title', 'src', "class", "style"], 
+          "div" => ["class"], "h2" => ["style"],
+          "p" => ["style"]
+          },
+        protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] },
+                                'img' => {'href' => ['http', 'https', 'mailto'] } 
+                              } 
+        )
+    end
   end
 end
