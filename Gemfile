@@ -10,7 +10,7 @@ group :development, :test do
   gem "pry-rails"
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl_rails'
   gem "guard-rspec"
 end

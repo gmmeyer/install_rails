@@ -231,7 +231,7 @@ DEPENDENCIES
   pry-rails
   rails (= 4.0.3)
   rails_12factor
-  rspec-rails
+  rspec-rails (~> 3.0.0.beta)
   sanitize
   sass-rails
   turbolinks
