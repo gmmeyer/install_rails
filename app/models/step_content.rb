@@ -24,8 +24,8 @@ class StepContent < ActiveRecord::Base
   def sanitize_content
 
     self.content = Sanitize.clean(self.content, 
-      elements: ["a", "img", "strong"], 
-      attributes: {'a' => ["href", "title", "class"], 'img' => ['alt', 'title', 'src', "class"]},
+      elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div"], 
+      attributes: {'a' => ["target", "href", "title", "class", :data], 'img' => ['alt', 'title', 'src', "class", "style"], "div" => ["class"], "h2" => ["style"]},
       protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] },
                               'img' => {'href' => ['http', 'https', 'mailto'] } 
                             } 
