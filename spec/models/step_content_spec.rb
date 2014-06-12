@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe StepContent do
 
-  context "Sanitizes the content" do
+  context "Sanitized content" do
 
     let(:stripped_text) do
       "Here we are in the wilderness."

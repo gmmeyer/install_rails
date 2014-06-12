@@ -10,11 +10,11 @@ describe User do
         User.new_guest
       end
 
-      it "should be valid" do
+      it "and it should be valid" do
         expect(user).to be_valid
       end
 
-      it "should be a guest" do
+      it "and it should be a guest" do
         expect(user.guest).to be_truthy
       end
 
