@@ -1,18 +1,33 @@
-
-<%= @step.content %>
-
-
-<section class="prompt center">
-    <%= link_to "Previous Step", previous_wizard_path, class: "option" %>
-   <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
-    <%= link_to "Next Step",     next_wizard_path,     class: "option"%>
+<section class="instructions">
+  <%= @step.step_content.content %>
 </section>
 
+<section class="prompt center">
+  <% if @step.final_step? %>
+
+  <% elsif @step.next_steps.count == 1 %>
+    <%= link_to "Previous Step", step_path(@step.previous_step), class:"option" %>
+    <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
+    <%= link_to "Next Step",     step_path(@step.next_step),     class: "option" %>
+  <% else %>
+  <h2>
+    <% @step.prompt %>
+  </h2>
+  <% @step.next_steps.each do |step| %>
+    <% button_to  step.button_text, step_path(step) %>
+  <% end %>
+     <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
+  <% end %>
+</section>
 
 <div id="trouble" class="collapse out note">
-
   <div class="disqus">
     <%= render 'layouts/disqus' %>
   </div>
-
 </div>
+
+<% if @step.mixpanel %>
+<script>
+  mixpanel.track(@step.mixpanel);
+</script>
+<% end %>
