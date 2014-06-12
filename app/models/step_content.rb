@@ -1,4 +1,5 @@
 class StepContent < ActiveRecord::Base
+
   has_many :steps
   before_save :set_friendly_name
   before_create :set_friendly_name
@@ -24,8 +25,12 @@ class StepContent < ActiveRecord::Base
   def sanitize_content
 
     self.content = Sanitize.clean(self.content, 
-      elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div"], 
-      attributes: {'a' => ["target", "href", "title", "class", :data], 'img' => ['alt', 'title', 'src', "class", "style"], "div" => ["class"], "h2" => ["style"]},
+      elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div", "small", "p", "i", "hr"], 
+      attributes: {'a' => ["target", "href", "title", "class", :data], 
+        'img' => ['alt', 'title', 'src', "class", "style"], 
+        "div" => ["class"], "h2" => ["style"],
+        "p" => ["style"]
+        },
       protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] },
                               'img' => {'href' => ['http', 'https', 'mailto'] } 
                             } 

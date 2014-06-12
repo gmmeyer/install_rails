@@ -6,7 +6,7 @@ class Step < ActiveRecord::Base
   belongs_to :previous_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
   has_many :next_steps, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
 
-  validates :operating_system_id, presence: true
+  validates :operating_system_id, :step_content_id, presence: true
   validate :check_previous_steps
   validate :check_siblings
   validate :check_children
@@ -15,14 +15,16 @@ class Step < ActiveRecord::Base
     self.final_step
   end
 
-  def next_step(user_choice = nil)
+def title
+  step_content.title
+end
 
+  def next_step(user_choice = nil)
     if user_choice
       return what_choice(user_choice)
     else
       return next_steps[0]
     end
-
   end
 
   def what_choice(user_choice)

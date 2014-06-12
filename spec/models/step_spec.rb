@@ -5,22 +5,34 @@ describe Step do
   context "validity" do
 
     it "should not be valid without an operating system" do
-      step = Step.new(previous_step_id: 1)
+      step = Step.new(step_content_id: 1, previous_step_id: 1)
       expect(step).not_to be_valid
     end
 
     it "should not be valid without previous steps" do
-      step = Step.new(operating_system_id: 1)
+      step = Step.new(step_content_id: 1, operating_system_id: 1)
       expect(step).not_to be_valid
     end
 
+    it "should not be valid without step content" do
+      step = Step.new(operating_system_id: 1, previous_step_id: 1)
+
+      expect(step).not_to be_valid
+    end
+
+    it "should be valid with step content, previous steps and an operating system" do
+      step = Step.new(operating_system_id: 1, previous_step_id: 1, step_content_id: 1)
+
+      expect(step).to be_valid
+    end
+
     it "can be valid without previous steps if it is the first step" do
-      step = Step.new(operating_system_id: 1, first_step: true)
+      step = Step.new(step_content_id: 1, operating_system_id: 1, first_step: true)
       expect(step).to be_valid
     end
 
     it "should know when it's the final step" do
-      step = Step.new(operating_system_id: 1, first_step: true, final_step: true)
+      step = Step.new(step_content_id: 1, operating_system_id: 1, first_step: true, final_step: true)
       expect(step.final_step).to be_truthy
     end
 
@@ -29,9 +41,9 @@ describe Step do
   context "with multiple siblings" do
 
     before(:example) do
-      @first_step = Step.create(operating_system_id: 1, first_step: true, final_step: true)
-      @second_step_1 = Step.create(operating_system_id: 1, previous_step_id: @first_step.id)
-      @second_step_2 = Step.new(operating_system_id: 1, previous_step_id: @first_step.id)
+      @first_step = Step.create(step_content_id: 1, operating_system_id: 1, first_step: true, final_step: true)
+      @second_step_1 = Step.create(step_content_id: 2, operating_system_id: 1, previous_step_id: @first_step.id)
+      @second_step_2 = Step.new(step_content_id: 2, operating_system_id: 1, previous_step_id: @first_step.id)
     end
 
     it "should not be valid if it is one of many next steps and does not have a choice or button text" do
@@ -53,9 +65,9 @@ describe Step do
   context "with multiple children" do
 
     before(:example) do
-      @first_step = Step.create(operating_system_id: 1, first_step: true, final_step: true)
-      @second_step_1 = Step.create(operating_system_id: 1, previous_step_id: @first_step.id, choice: 1)
-      @second_step_2 = Step.create(operating_system_id: 1, previous_step_id: @first_step.id, choice: 2)
+      @first_step = Step.create(step_content_id: 1, operating_system_id: 1, first_step: true, final_step: true)
+      @second_step_1 = Step.create(step_content_id: 2, operating_system_id: 1, previous_step_id: @first_step.id, choice: 1)
+      @second_step_2 = Step.create(step_content_id: 2, operating_system_id: 1, previous_step_id: @first_step.id, choice: 2)
     end
 
     it "should not be valid if there is no prompt and there are multiple child steps" do
@@ -72,8 +84,8 @@ describe Step do
 
     before(:example) do
       @os = OperatingSystem.create(brand: "Mac", version: "OSX")
-      @first_step = Step.create(operating_system_id: @os.id, first_step: true)
-      @second_step = Step.create(operating_system_id: @os.id, previous_step_id: @first_step.id)
+      @first_step = Step.create(step_content_id: 1, operating_system_id: @os.id, first_step: true)
+      @second_step = Step.create(step_content_id: 2, operating_system_id: @os.id, previous_step_id: @first_step.id)
     end
 
     it "should know the next steps" do
@@ -91,7 +103,7 @@ describe Step do
     end
 
     it "should choose the correct next step among many next steps" do
-      @second_step_2 = Step.create(operating_system_id: @os.id, previous_step_id: @first_step.id, choice: "1")
+      @second_step_2 = Step.create(step_content_id: 2, operating_system_id: @os.id, previous_step_id: @first_step.id, choice: "1")
       @second_step.set_choice("2")
       expect(@first_step.next_step("2")).to eql(@second_step)
     end

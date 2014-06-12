@@ -25,7 +25,7 @@ describe OperatingSystem do
 
     before(:example) do
       @os = OperatingSystem.create(brand: "Ubuntu", version: "14.04")
-      @step = Step.create(operating_system_id: @os.id, first_step: true)
+      @step = Step.create(operating_system_id: @os.id, first_step: true, step_content_id: 1)
     end
 
     it "should recognize the association" do

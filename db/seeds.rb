@@ -9,11 +9,8 @@
 brands = ['Other', 'Windows']
 version = ['NA', 'NA']
 
-brands.each do |brand|
-
-  OperatingSystem.create(brand: brand, version: 'NA')
-
-end
+@windows = OperatingSystem.create(brand: "Windows", version: 'NA')
+@other = OperatingSystem.create(brand: "Other", version: "NA")
 
 versions = ['10.5', '10.6', '10.7', '10.8', '10.9']
 
@@ -21,5 +18,16 @@ versions.each do |version|
   OperatingSystem.create(brand: 'Mac', version: version)
 end
 
+@middle_macs = [
+  OperatingSystem.find_by(brand: "Mac", version: "10.8"),
+  OperatingSystem.find_by(brand: "Mac", version: "10.7"),
+  OperatingSystem.find_by(brand: "Mac", version: "10.6")
+]
 
+@outer_macs = [
+  OperatingSystem.find_by(brand: "Mac", version: "10.9"),
+  OperatingSystem.find_by(brand: "Mac", version: "10.5")
+]
+
+require_relative("seed_pages/index")
 

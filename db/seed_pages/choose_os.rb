@@ -1,12 +1,12 @@
 html = <<-HTML
-  <section class="instructions">
     <h1>
       First off, we need to figure out which instructions to give you.
     </h1>
     <h2 style="text-align: center;">
       Which operating system are you using?
     </h2>
-  </section>
 HTML
 
-Step.create()
+step_content = StepContent.create(title: "Choose OS", content: html)
+
+Step.create(first_step: true, step_content_id: step_content.id, operating_system_id: 'NA', prompt: "NA")
