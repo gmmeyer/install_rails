@@ -71,9 +71,9 @@ describe Step do
   context "Steps" do
 
     before(:example) do
-      @first_step = Step.create(operating_system_id: 1, first_step: true)
-      @second_step = Step.create(operating_system_id: 1, previous_step_id: @first_step.id)
-
+      @os = OperatingSystem.create(brand: "Mac", version: "OSX")
+      @first_step = Step.create(operating_system_id: @os.id, first_step: true)
+      @second_step = Step.create(operating_system_id: @os.id, previous_step_id: @first_step.id)
     end
 
     it "should know the next steps" do
@@ -91,7 +91,7 @@ describe Step do
     end
 
     it "should choose the correct next step among many next steps" do
-      @second_step_2 = Step.create(operating_system_id: 1, previous_step_id: @first_step.id, choice: "1")
+      @second_step_2 = Step.create(operating_system_id: @os.id, previous_step_id: @first_step.id, choice: "1")
       @second_step.set_choice("2")
       expect(@first_step.next_step("2")).to eql(@second_step)
     end

@@ -5,6 +5,7 @@ InstallRails::Application.routes.draw do
   root 'welcome#index'
 
   resources :steps
+  resources :operating_systems
 
   get 'test', to: 'welcome#test'
   delete 'signout', to: 'sessions#destroy'
