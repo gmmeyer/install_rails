@@ -2,6 +2,10 @@ class StepsController < ApplicationController
 
   before_filter :signed_in_user, only: [:show]
 
+  def index
+    @steps = Steps.all
+  end
+
   def new
     @step = Step.new
     unauthorized! if cannot? :manage, @step

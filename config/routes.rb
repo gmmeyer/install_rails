@@ -1,6 +1,6 @@
 InstallRails::Application.routes.draw do
 
-  resources :sessions, only: :destroy
+  resource :sessions
   # resources :install_steps, path: 'steps'
   root 'welcome#index'
 
@@ -9,6 +9,7 @@ InstallRails::Application.routes.draw do
   end
 
   get 'test', to: 'welcome#test'
+  get 'admin', to: 'welcome#admin'
   delete 'signout', to: 'sessions#destroy'
 
 end

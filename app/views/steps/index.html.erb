@@ -1,0 +1,5 @@
+<% @steps.each do |step| %>
+
+  <%=link_to step.title, step_edges(step) %> <%= button_to "Delete" %> <%= button_to "Edit" %>
+
+<% end %>

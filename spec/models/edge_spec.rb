@@ -26,7 +26,7 @@ describe Edge do
   context "one of many edges" do
 
     before(:example) do
-      @edge = Edge.new(previous_step_id: 1, )
+      @edge = Edge.new(previous_step_id: 1)
     end
 
     it "should be able to respond that it is the correct edge to follow" do

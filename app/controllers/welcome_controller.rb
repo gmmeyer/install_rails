@@ -6,4 +6,9 @@ class WelcomeController < ApplicationController
   def test
     render layout: "application"
   end
+
+  def admin
+    unauthorized! if cannot? :manage, @step
+    render :admin
+  end
 end
