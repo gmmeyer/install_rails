@@ -11,40 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612141353) do
+ActiveRecord::Schema.define(version: 20140613205853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "operating_systems", force: true do |t|
-    t.string   "brand"
-    t.string   "version"
+  create_table "edges", force: true do |t|
+    t.integer  "previous_step_id"
+    t.integer  "next_step_id"
+    t.string   "choice"
+    t.string   "os"
+    t.string   "os_version"
+    t.string   "rails_version"
+    t.string   "ruby_version"
+    t.string   "button_text"
+    t.boolean  "single_edge"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "step_contents", force: true do |t|
-    t.string   "title"
-    t.string   "step_name"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "trouble"
   end
 
   create_table "steps", force: true do |t|
-    t.integer  "previous_step_id"
-    t.integer  "step_content_id"
-    t.integer  "operating_system_id"
+    t.string   "title"
+    t.string   "step_name"
+    t.text     "content"
+    t.text     "trouble"
+    t.string   "mixpanel"
     t.boolean  "final_step"
     t.boolean  "first_step"
-    t.string   "choice"
+    t.string   "prompt"
+    t.string   "permalink"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "prompt"
-    t.string   "button_text"
-    t.string   "mixpanel"
   end
+
+  add_index "steps", ["permalink"], name: "index_steps_on_permalink", using: :btree
 
   create_table "users", force: true do |t|
     t.boolean  "guest"

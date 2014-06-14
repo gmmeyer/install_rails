@@ -7,7 +7,7 @@ class StepsController < ApplicationController
   end
 
   def show
-    @step = Step.find(params[:id])
+    @step = Step.find_by(permalink: params[:id])
   end
 
   def edit

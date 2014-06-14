@@ -1,77 +1,49 @@
 class Step < ActiveRecord::Base
 
-  belongs_to :step_content
-  belongs_to :operating_system
+  include Permalinkable
 
-  belongs_to :previous_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
-  has_many :next_steps, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
+  has_many :next_edges, foreign_key: :previous_step_id, class_name: "Edge"
+  has_many :previous_edges, foreign_key: :next_step_id, class_name: "Edge"
+  has_many :previous_steps, through: :previous_edges
+  has_many :next_steps, through: :next_edges
 
-  validates :operating_system_id, :step_content_id, presence: true
-  validate :check_previous_steps
-  validate :check_siblings
-  validate :check_children
+  before_validation :sanitize_content
+  before_validation :sanitize_trouble
+
+  # I need to scope the edges so that I only see ones for my operating system
+  # Or ones that have no operating system in them. (or some other identifier)
+
+  validates :title, :content, presence: true
 
   def final_step?
     self.final_step
   end
 
-def title
-  step_content.title
-end
-
-  def next_step(user_choice = nil)
-    if user_choice
-      return what_choice(user_choice)
-    else
-      return next_steps[0]
-    end
-  end
-
-  def what_choice(user_choice)
-    next_steps.each do |next_step|
-      if next_step.this_step?(user_choice)
-        return next_step
-      end
-    end
-  end
-
-  def this_step?(user_choice)
-    true if user_choice == self.choice
-  end
-
-  def set_choice(user_choice)
-    self.choice = user_choice
-    self.save
-  end
-
   private
-  def check_previous_steps
-    if !self.previous_step_id && !self.first_step
-      errors.add(:previous_step_id, "Either it needs to have previous steps or it needs to be set as the first step")
-    end 
-  end
-
-  def check_children
-    if self.prompt
-      return
-    elsif self.next_steps.count > 1
-      errors.add(:prompt, "You must have a prompt so that the user can choose between multiple child steps")
+  def sanitize_content
+    if self.content
+      self.content = sanitize_helper(self.content)
     end
   end
 
-  def check_siblings
-    if self.choice
-      return
-    elsif self.button_text
-      return
-    elsif self.previous_step
-      self.previous_step.next_steps.each do |step|
-        if step.id != self.id
-          errors.add(:choice, "You cannot have multiple siblings without having a choice or button text")
-          break
-        end
-      end
+  def sanitize_trouble
+    if self.trouble
+      self.trouble = sanitize_helper(self.trouble)
     end
+  end
+
+  def sanitize_helper(dirty)
+    Sanitize.clean(dirty,
+                   elements: ["a", "img", "strong", "li", "ul", "ol", "pre", "code", "h1", "h2", "h3", "div", "small", "p", "i", "hr"],
+                   attributes: {'a' => ["target", "href", "title", "class", :data],
+                                'img' => ['alt', 'title', 'src', "class", "style"],
+                                "div" => ["class"], "h2" => ["style"],
+                                "p" => ["style"]
+                                },
+                   protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] },
+                                'img' => {'href' => ['http', 'https', 'mailto'] }
+                                }
+                   ).html_safe
   end
 
 end

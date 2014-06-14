@@ -16,4 +16,4 @@ step_content = StepContent.create(title: "Choose OS Version", content: html)
 
 previous_step = Step.find_by(first_step: true)
 
-Step.create(step_content_id: step_content.id, operating_system_id: 'Mac', prompt: "NA", previous_step_id: previous_step.id, prompt: "Select your version of Mac OS X", choice: "Mac")
+Step.create(step_content_id: step_content.id, prompt: "NA", previous_step_id: previous_step.id, prompt: "Select your version of Mac OS X", choice: "Mac")

@@ -28,14 +28,12 @@ step_content = StepContent.find_by(title: 'RailsInstaller')
 
 previous_step = Step.find_by(first_step: true)
 
-windows = OperatingSystem.find_by(brand: "Windows")
-
-Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id, operating_system_id: windows.id, choice: "Windows")
+previous_step = Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id, choice: "Windows")
 
 step_content = StepContent.create(title: "Find Git Bash", content: html)
 
-previous_step = Step.joins(:operating_system).joins(:step_content).where("operating_systems.brand = 'Windows' AND step_contents.title = 'RailsInstaller' ")[0]
+previous_step = Step.joins(:step_content).where("step_contents.title = 'RailsInstaller' ")[0]
 
-Step.joins(:operating_system).joins(:step_content).where("step_contents.title = 'RailsInstaller' ")[0]
+Step.joins(:step_content).where("step_contents.title = 'RailsInstaller' ")[0]
 
-  Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id, operating_system_id: previous_step.operating_system_id)
+  Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id)

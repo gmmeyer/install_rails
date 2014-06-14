@@ -102,11 +102,11 @@ step_content = StepContent.create(title: "Create Your First App", content: html,
 previous_steps = Step.joins(:operating_system).joins(:step_content).where("(operating_systems.brand = 'Mac' AND step_contents.title = 'Sublime Text') OR step_contents.title = 'TextMate'")
 
 previous_steps.each do |step|
-  Step.create(operating_system_id: step.operating_system_id, step_content_id: step_content.id, previous_step_id: step.id)
+  Step.create(step_content_id: step_content.id, previous_step_id: step.id)
 end
 
 step_content = StepContent.create(title: "Create Your First App In Windows", content: windows_html, trouble: trouble)
 
-previous_step = Step.joins(:operating_system).joins(:step_content).where("operating_systems.brand = 'Windows' AND step_contents.title = 'Sublime Text'")[0]
+previous_step = Step.joins(:step_content).where("step_contents.title = 'Sublime Text'")[0]
 
-Step.create(operating_system_id: previous_step.operating_system_id, step_content_id: step_content.id, previous_step_id: previous_step.id)
+Step.create(step_content_id: step_content.id, previous_step_id: previous_step.id)
