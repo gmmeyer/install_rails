@@ -18,6 +18,7 @@ When there is a choice between various steps and the choice does not persist in 
 ## To Do
 
 * Increase test coverage
+  * No matter how good you are, there is always something you miss with test coverage. This app needs more.
 * Remove all of the old steps
 * JS and CSS up the admin pages so that they are much easier and nicer to use.
 * Images should be handled by AWS.
