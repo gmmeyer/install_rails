@@ -11,7 +11,7 @@ class StepsController < ApplicationController
   end
 
   def edit
-    @step = Step.find(params[:id])
+    @step = Step.find(permalink: params[:id])
   end
 
   def update
@@ -19,7 +19,7 @@ class StepsController < ApplicationController
   end
 
   def delete
-    @step = Step.find(params[:id])
+    @step = Step.find(permalink: params[:id])
     @step.destroy
   end
 
