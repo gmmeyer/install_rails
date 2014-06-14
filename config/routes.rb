@@ -4,8 +4,9 @@ InstallRails::Application.routes.draw do
   # resources :install_steps, path: 'steps'
   root 'welcome#index'
 
-  resources :steps
-  resources :operating_systems
+  resources :steps do
+    resources :edges
+  end
 
   get 'test', to: 'welcome#test'
   delete 'signout', to: 'sessions#destroy'

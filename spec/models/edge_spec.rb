@@ -5,14 +5,20 @@ describe Edge do
   context "validity" do
 
     it "should not be valid without a previous step" do
-      edge = Edge.new()
+      edge = Edge.new(next_step_id: 1, single_edge: true)
       expect(edge).not_to be_valid
     end
 
     it "should not be valid without a next step" do
-      edge = Edge.new()
+      edge = Edge.new(previous_step_id: 1, single_edge: true)
 
       expect(edge).not_to be_valid
+    end
+
+    it "should be valid if it has a next and previous step" do
+      edge = Edge.new(previous_step_id: 1, next_step_id: 2, single_edge: true)
+
+      expect(edge).to be_valid
     end
 
   end
@@ -20,6 +26,7 @@ describe Edge do
   context "one of many edges" do
 
     before(:example) do
+      @edge = Edge.new(previous_step_id: 1, )
     end
 
     it "should be able to respond that it is the correct edge to follow" do

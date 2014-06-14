@@ -19,7 +19,12 @@ class Step < ActiveRecord::Base
     self.final_step
   end
 
+  def self.first_step
+    Step.find_by(first_step: true)
+  end
+
   private
+  
   def sanitize_content
     if self.content
       self.content = sanitize_helper(self.content)

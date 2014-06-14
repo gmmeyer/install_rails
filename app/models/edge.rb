@@ -3,10 +3,10 @@ class Edge < ActiveRecord::Base
   belongs_to :previous_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
   belongs_to :next_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
 
-  validates :previous_step_content_id, :next_step_content_id, presence: true
-  validate :check_previous_steps
-  validate :check_siblings
-  validate :check_children
+  validates :previous_step_id, :next_step_id, presence: true
+  # validate :check_previous_steps
+  # validate :check_siblings
+  # validate :check_children
 
   def single_edge?
     self.single_edge
