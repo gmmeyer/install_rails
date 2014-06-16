@@ -34,7 +34,7 @@ class Step < ActiveRecord::Base
   end
 
   def get_next_steps(user = nil)
-    edges = get_next_edges(user = nil)
+    edges = get_next_edges(user = user)
     edges.inject(:next_step)
   end
 
