@@ -1,7 +1,7 @@
 class Edge < ActiveRecord::Base
 
   belongs_to :previous_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
-  belongs_to :next_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
+  belongs_to :next_step, class_name: "Step", primary_key: :id, foreign_key: :next_step_id
 
   validates :previous_step_id, :next_step_id, presence: true
   validate :check_link
@@ -35,31 +35,6 @@ class Edge < ActiveRecord::Base
 
   def single?
     self.single_edge
-  end
-
-  def next_step(user_choice = nil)
-    if user_choice
-      return what_choice(user_choice)
-    else
-      return next_steps[0]
-    end
-  end
-
-  def what_choice(user_choice)
-    next_steps.each do |next_step|
-      if next_step.this_step?(user_choice)
-        return next_step
-      end
-    end
-  end
-
-  def this_step?(user_choice)
-    true if user_choice == self.choice
-  end
-
-  def set_choice(user_choice)
-    self.choice = user_choice
-    self.save
   end
 
   private

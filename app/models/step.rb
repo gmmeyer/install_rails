@@ -25,15 +25,8 @@ class Step < ActiveRecord::Base
   end
 
   #replace these with scopes
-  def get_previous_step
-    if self.previous_edges.count == 1
-      return self.previous_steps.first
-    elsif self.first_step?
-      return
-    else
-      self.previous_edges.each do |edge|
-        return edge.previous_step if edge.follow?(user = current_user)
-      end
+  def get_previous_step(user = nil)
+    @step.previous_edges.includes(:previous_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, current_user.os, current_user.os_version, current_user.ruby_version, current_user.rails_version).inject(:previous_step)
     end
 
     #Only after checking everything else can we say that this is the answer
@@ -43,19 +36,13 @@ class Step < ActiveRecord::Base
 
   end
 
-  def get_next_steps
-    if self.next_edges.count == 1
-      return self.next_steps
-    elsif self.final_step?
-      return
-    elsif self.next_edges[0].button_text
-      return self.previous_steps
-    else
-      self.previous_edges.each do |edge|
-        return edge.next_step if edge.follow?(user = current_user)
-      end
-    end
+  def get_next_edges(user = nil)
+    self.next_edges.includes(:next_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
+  end
 
+  def get_next_steps(user = nil)
+    edges = get_next_edges(user = nil)
+    edges.inject(:next_step)
   end
 
   private

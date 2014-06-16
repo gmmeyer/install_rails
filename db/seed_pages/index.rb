@@ -44,8 +44,11 @@ Edge.create(previous_step_id: choose_os_version_step.id, next_step_id:  install_
 
 find_the_command_line_step = Step.create(title: "Find The Command Line", content: find_the_command_line)
 
-Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, single_edge: true)
-Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, single_edge: true)
+Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.9")
+Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.5")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.8")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.6")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.7")
 
 verify_ruby_version_step = Step.create(title: "Verify Ruby Version", content: verify_ruby_version, save_user_choice: true, prompt: "What version of Ruby do you have?")
 
