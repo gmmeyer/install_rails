@@ -26,7 +26,7 @@ class Step < ActiveRecord::Base
 
   #replace these with scopes
   def get_previous_step(user = nil)
-    @step.previous_edges.includes(:previous_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version).inject(:previous_step)
+    self.previous_edges.includes(:previous_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version).inject(:previous_step)
     end
 
   def get_next_edges(user = nil)
