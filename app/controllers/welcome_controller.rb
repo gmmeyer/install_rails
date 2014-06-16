@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   def index
+    sign_in(User.new_guest)
     @first_step = Step.find_by(first_step: true)
   end
 

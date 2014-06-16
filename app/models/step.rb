@@ -26,16 +26,20 @@ class Step < ActiveRecord::Base
 
   #replace these with scopes
   def get_previous_step(user = nil)
-    self.previous_edges.includes(:previous_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version).inject(:previous_step)
+    self.previous_edges.includes(:previous_step).where("single_edge = ? or (os = ? and os_version = ?) or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version).map{|edge| edge.previous_step}
     end
 
   def get_next_edges(user = nil)
-    self.next_edges.includes(:next_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
+    if self.save_user_choice
+      self.next_edges.includes(:next_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
+    else
+      self.next_edges.includes(:next_step).where("single_edge = ? or (os = ? and os_version = ?) or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
+    end
   end
 
   def get_next_steps(user = nil)
     edges = get_next_edges(user = user)
-    edges.inject(:next_step)
+    edges.map{|edge| edge.next_step}
   end
 
   private
