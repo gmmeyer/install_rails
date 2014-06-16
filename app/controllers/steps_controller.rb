@@ -4,51 +4,69 @@ class StepsController < ApplicationController
 
   def index
     @steps = Steps.all
+
+    render :index
   end
 
   def new
     @step = Step.new
     unauthorized! if cannot? :manage, @step
+
+    render :new
   end
 
   def show
-    @step = Step.find_by(permalink: params[:id])
-  end
+    @step = Step.includes([:previous_steps, :next_edges, :previous_edges]).includes(next_edges: :next_step).find_by(permalink: params[:id])
 
-  def edit
-    @step = Step.find_by(permalink: params[:id])
-    unauthorized! if cannot? :manage, @step
-  end
+    @next_edges = @step.next_edges
+    @next_steps = @step.get_next_steps
+    @previous_step = @step.get_previous_step
 
-  def create
-    @step = Step.new(step_params)
-    unauthorized! if cannot? :manage, @step
-    if @step.save
-      redirect_to #admin thing
-    else
-      flash[:errors] = @step.errors.full_messages
+    if @step.first_step?
+      @mac = @step.next_edges.includes(:next_step).find_by(button_text: "Mac")
+      @windows = @step.next_edges.includes(:next_step).find_by(button_text: "Windows")
+      @other = @step.next_edges.includes(:next_step).find_by(button_text: "Other")
     end
+
   end
 
-  def update
-    @step = Step.find_by(permalink: params[:id])
-    unauthorized! if cannot? :manage, @step
-    if @step.save
-      redirect_to #admin page
-    else
-      flash[:errors] = @step.errors.full_messages
-      redirect_to #admin page
-    end
-  end
+  render :show
+end
 
-  def delete
-    @step = Step.find(permalink: params[:id])
-    @step.destroy
+def edit
+  @step = Step.find_by(permalink: params[:id])
+  unauthorized! if cannot? :manage, @step
+end
+
+def create
+  @step = Step.new(step_params)
+  unauthorized! if cannot? :manage, @step
+  if @step.save
+    redirect_to #admin thing
+  else
+    flash[:errors] = @step.errors.full_messages
+  end
+end
+
+def update
+  @step = Step.find_by(permalink: params[:id])
+  unauthorized! if cannot? :manage, @step
+  if @step.save
+    redirect_to #admin page
+  else
+    flash[:errors] = @step.errors.full_messages
     redirect_to #admin page
   end
+end
 
-  private
-  def step_params
-    params.require(:step).permit(:title, :content, :trouble, :mixpanel, :final_step, :first_step, :prompt, :permalink)
-  end
+def delete
+  @step = Step.find(permalink: params[:id])
+  @step.destroy
+  redirect_to #admin page
+end
+
+private
+def step_params
+  params.require(:step).permit(:title, :content, :trouble, :mixpanel, :final_step, :first_step, :prompt, :permalink)
+end
 end

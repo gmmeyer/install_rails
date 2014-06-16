@@ -4,11 +4,33 @@ class Edge < ActiveRecord::Base
   belongs_to :next_step, class_name: "Step", primary_key: :id, foreign_key: :previous_step_id
 
   validates :previous_step_id, :next_step_id, presence: true
-  # validate :check_previous_steps
-  # validate :check_siblings
-  # validate :check_children
+  validate :check_link
 
-  def single_edge?
+  def options
+    {"os" => self.os, 
+      "os_version" => self.os_version,
+      "rails_version" => self.rails_version,
+      "ruby_version" => self.ruby_version
+    }
+  end
+
+  def follow?(user = nil)
+    if self.single_edge
+      return true
+    elsif user
+      if self.os && user.os == self.os && user.os_version == self.os_version
+        return true
+      elsif self.rails_version && user.rails_version == self.rails_version
+        return true
+      elsif self.ruby_version && user.ruby_version == self.ruby_version
+        return true
+      end
+    end
+
+    false
+  end
+
+  def single?
     self.single_edge
   end
 
@@ -38,32 +60,9 @@ class Edge < ActiveRecord::Base
   end
 
   private
-  def check_previous_steps
-    if !self.previous_step_id && !self.first_step
-      errors.add(:previous_step_id, "Either it needs to have previous steps or it needs to be set as the first step")
-    end
-  end
-
-  def check_children
-    if self.prompt
-      return
-    elsif self.next_steps.count > 1
-      errors.add(:prompt, "You must have a prompt so that the user can choose between multiple child steps")
-    end
-  end
-
-  def check_siblings
-    if self.choice
-      return
-    elsif self.button_text
-      return
-    elsif self.previous_step
-      self.previous_step.next_steps.each do |step|
-        if step.id != self.id
-          errors.add(:choice, "You cannot have multiple siblings without having a choice or button text")
-          break
-        end
-      end
+  def check_link
+    unless self.single_edge || self.os || self.os_version || self.rails_version || self.ruby_version || self.button_text
+      errors.add(:single_edge, "You must provide some way of letting the user know where to go next")
     end
   end
 end

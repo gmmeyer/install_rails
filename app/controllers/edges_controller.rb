@@ -1,5 +1,23 @@
 class EdgesController < ApplicationController
 
+  def save_user_choice
+    @edge = Edge.find(params[:id])
+
+    @edge.options.each do |key,value|
+      if value
+        current_user.send(key + '=', value)
+      end
+    end
+
+    current_user.save
+
+    redirect_to step_url(@edge.next_step)
+  end
+
+  def index
+    @step = Step.includes(next_edges: :next_step).includes(previous_edges: :previous_step).find_by(permalink: params[:step_id])
+  end
+
   def create
     @edge = Edge.new(edge_params)
     unauthorized! if cannot? :edit, @edge
@@ -12,7 +30,7 @@ class EdgesController < ApplicationController
   end
 
   def update
-
+    unauthorized! if cannot? :edit, @edge
   end
 
   def delete

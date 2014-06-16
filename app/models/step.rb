@@ -23,8 +23,43 @@ class Step < ActiveRecord::Base
     Step.find_by(first_step: true)
   end
 
+  def first_step
+    self.first_step
+  end
+
+  #replace these with scopes
+  def get_previous_step
+    if @step.previous_edges.count == 1
+      return @step.previous_steps.first
+    elsif @step.first_step?
+      return
+    elsif @step.previous_edges[0].button_text
+      return @step.previous_steps.first
+    else
+      @step.previous_edges.each do |edge|
+        return edge.previous_step if edge.follow?(user = current_user)
+      end
+    end
+
+  end
+
+  def get_next_steps
+    if @step.next_edges.count == 1
+      return @step.next_steps
+    elsif @step.final_step?
+      return
+    elsif @step.next_edges[0].button_text
+      return @step.previous_steps
+    else
+      @step.previous_edges.each do |edge|
+        return edge.previous_step if edge.follow?(user = current_user)
+      end
+    end
+
+  end
+
   private
-  
+
   def sanitize_content
     if self.content
       self.content = sanitize_helper(self.content)

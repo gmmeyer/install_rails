@@ -5,43 +5,53 @@
 
 <% if @step.final_step? %>
   <section class="prompt center">
-    <%= link_to "Previous Step", step_path(@step.previous_step), class:"option" %>
+    <%= link_to "Previous Step", step_url(@previous_step), class:"option" %>
   </section>
 
 <% elsif @step.first_step %>
   <section class="center prompt row">
     <div class="apple col-sm-4">
-      <img src="/mac_steps/apple.png" class="choose_your_os">
+      <%= image_tag("mac_steps/apple.png", class:"choose_your_os") %>
       <br>
-      <a rel="alternate" href="<%= step_path(@step.next_step(user_choice = 'Mac').id) %>" class="option">Mac</a>
+      <%= button_to @mac.button_text, save_user_choice_url(@mac), class: "option" %>
     </div>
     <div class="windows col-sm-4">
-    <img src="/mac_steps/microsoft.png" class="choose_your_os">
+      <%= image_tag("mac_steps/microsoft.png", class: "choose_your_os") %>
       <br>
-      <a rel="alternate" href="<%= step_path(@step.next_step(user_choice = 'Windows').id)%>" class="option">Windows</a>
+      <%= button_to @windows.button_text, save_user_choice_url(@windows), class: "option" %>
     </div>
     <div class="other col-sm-4">
-      <img src="/mac_steps/linux-logo.jpg" class="choose_your_os">
+      <%= image_tag("mac_steps/linux-logo.jpg", class: "choose_your_os") %>
       <br>
-      <a rel="alternate" href="<%= step_path(@step.next_step(user_choice = 'Other').id) %>" class="option">Other</a>
+      <%= button_to @other.button_text, save_user_choice_url(@other), class: "option" %>
     </div>
   </section>
 
-<% elsif @step.next_steps.count == 1 %>
+<% elsif @next_steps.count == 1 %>
   <section class="prompt center">
-    <%= link_to "Previous Step", step_path(@step.previous_step), class:"option" %>
+    <%= link_to "Previous Step", step_url(@previous_step), class: "option" %>
     <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
-    <%= link_to "Next Step",     step_path(@step.next_step),     class: "option" %>
+
+    <%= link_to "Next Step",     step_url(@next_steps.first),     class: "option" %>
+
   </section>
 <% else %>
   <section class="prompt center">
     <h2>
-      <% unless @step.prompt == "NA"  %>
-        <% @step.prompt %>
+      <% if @step.prompt %>
+        <%= @step.prompt %>
       <% end %>
     </h2>
-    <% @step.next_steps.each do |step| %>
-      <%= link_to  step.button_text, step_path(step), class: "option" %>
+    <% if @step.save_user_choice  %>
+      <% @next_edges.each do |edge| %>
+        <%= button_to edge.button_text, save_user_choice_url(edge), class: "option" %>
+      <% end %>
+
+
+    <% else %>      
+      <% @next_edges.each do |edge| %>
+        <%= link_to  edge.button_text, step_url(edge.next_step), class: "option" %>
+      <% end %>
     <% end %>
        <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
    </section>

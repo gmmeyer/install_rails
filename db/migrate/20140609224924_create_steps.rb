@@ -11,6 +11,7 @@ class CreateSteps < ActiveRecord::Migration
       t.boolean :first_step
       t.string :prompt
       t.string :permalink
+      t.boolean :save_user_choice
 
       t.timestamps
     end

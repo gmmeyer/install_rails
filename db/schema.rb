@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140614193953) do
     t.boolean  "first_step"
     t.string   "prompt"
     t.string   "permalink"
+    t.boolean  "save_user_choice"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
