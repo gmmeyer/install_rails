@@ -29,13 +29,6 @@ class Step < ActiveRecord::Base
     @step.previous_edges.includes(:previous_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, current_user.os, current_user.os_version, current_user.ruby_version, current_user.rails_version).inject(:previous_step)
     end
 
-    #Only after checking everything else can we say that this is the answer
-    if self.previous_edges[0].button_text
-      return self.previous_steps.first
-    end
-
-  end
-
   def get_next_edges(user = nil)
     self.next_edges.includes(:next_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
   end

@@ -39,8 +39,12 @@ class Edge < ActiveRecord::Base
 
   private
   def check_link
-    unless self.single_edge || self.os || self.os_version || self.rails_version || self.ruby_version || self.button_text
+    unless self.single_edge || self.os || self.os_version || self.rails_version || self.ruby_version
       errors.add(:single_edge, "You must provide some way of letting the user know where to go next")
+    end
+
+    if self.button_text && !(self.single_edge || self.os || self.os_version || self.rails_version || self.ruby_version)
+      errors.add(:button_text, "you cannot have button text without some way of ensuring that the previous step function works")
     end
   end
 end
