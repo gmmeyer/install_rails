@@ -26,32 +26,32 @@ class Step < ActiveRecord::Base
 
   #replace these with scopes
   def get_previous_step
-    if @step.previous_edges.count == 1
-      return @step.previous_steps.first
-    elsif @step.first_step?
+    if self.previous_edges.count == 1
+      return self.previous_steps.first
+    elsif self.first_step?
       return
     else
-      @step.previous_edges.each do |edge|
+      self.previous_edges.each do |edge|
         return edge.previous_step if edge.follow?(user = current_user)
       end
     end
 
     #Only after checking everything else can we say that this is the answer
-    if @step.previous_edges[0].button_text
-      return @step.previous_steps.first
+    if self.previous_edges[0].button_text
+      return self.previous_steps.first
     end
 
   end
 
   def get_next_steps
-    if @step.next_edges.count == 1
-      return @step.next_steps
-    elsif @step.final_step?
+    if self.next_edges.count == 1
+      return self.next_steps
+    elsif self.final_step?
       return
-    elsif @step.next_edges[0].button_text
-      return @step.previous_steps
+    elsif self.next_edges[0].button_text
+      return self.previous_steps
     else
-      @step.previous_edges.each do |edge|
+      self.previous_edges.each do |edge|
         return edge.next_step if edge.follow?(user = current_user)
       end
     end
