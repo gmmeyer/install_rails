@@ -4,8 +4,8 @@ class Step < ActiveRecord::Base
 
   has_many :next_edges, foreign_key: :previous_step_id, class_name: "Edge"
   has_many :previous_edges, foreign_key: :next_step_id, class_name: "Edge"
-  has_many :previous_steps, through: :previous_edges
-  has_many :next_steps, through: :next_edges
+  has_many :previous_steps, through: :previous_edges, source: :previous_step
+  has_many :next_steps, through: :next_edges, source: :next_step
 
   before_validation :sanitize_content
   before_validation :sanitize_trouble

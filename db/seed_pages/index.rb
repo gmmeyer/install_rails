@@ -23,7 +23,7 @@ require_relative("congratulations")
 require_relative("rails_for_linux_and_other")
 
 choose_os_step = Step.create(title: "Choose OS", content: choose_os, first_step: true, prompt: "NA", mixpanel: "choose_your_os", save_user_choice: true)
-choose_os_version_step = Step.create(title: "Choose OS Version", prompt: "NA", prompt: "Select your version of Mac OS X", save_user_choice: true)
+choose_os_version_step = Step.create(title: "Choose OS Version", content: choose_os_version, prompt: "NA", prompt: "Select your version of Mac OS X", save_user_choice: true)
 Edge.create(previous_step_id: choose_os_step.id, next_step_id: choose_os_version_step.id, button_text: "Mac", os: "Mac")
 
 rails_installer_windows_step = Step.create(title: "Railsinstaller Windows", content: rails_installer_windows)
