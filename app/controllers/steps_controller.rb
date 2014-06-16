@@ -20,7 +20,7 @@ class StepsController < ApplicationController
 
     @next_edges = @step.get_next_edges(user = current_user)
     @next_steps = @step.get_next_steps(user = current_user)
-    @previous_step = @step.get_previous_step
+    @previous_step = @step.get_previous_step(user = current_user)
 
     if @step.first_step?
       @mac = @step.next_edges.includes(:next_step).find_by(button_text: "Mac")
