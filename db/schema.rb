@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20140614193953) do
 
   create_table "steps", force: true do |t|
     t.string   "title"
-    t.string   "step_name"
     t.text     "content"
     t.text     "trouble"
     t.string   "mixpanel"

@@ -14,11 +14,14 @@ class Edge < ActiveRecord::Base
     }
   end
 
+  # button text is not included here because, if there is button text and nothing else, the button text already links it to a specific next step.
   def follow?(user = nil)
     if self.single_edge
       return true
     elsif user
-      if self.os && user.os == self.os && user.os_version == self.os_version
+      if self.os_version && user.os_version == self.os_version
+        return true
+      elsif self.os && user.os == self.os
         return true
       elsif self.rails_version && user.rails_version == self.rails_version
         return true

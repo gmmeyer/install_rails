@@ -10,9 +10,6 @@ class Step < ActiveRecord::Base
   before_validation :sanitize_content
   before_validation :sanitize_trouble
 
-  # I need to scope the edges so that I only see ones for my operating system
-  # Or ones that have no operating system in them. (or some other identifier)
-
   validates :title, :content, presence: true
 
   def final_step?
@@ -23,7 +20,7 @@ class Step < ActiveRecord::Base
     Step.find_by(first_step: true)
   end
 
-  def first_step
+  def first_step?
     self.first_step
   end
 
@@ -33,12 +30,15 @@ class Step < ActiveRecord::Base
       return @step.previous_steps.first
     elsif @step.first_step?
       return
-    elsif @step.previous_edges[0].button_text
-      return @step.previous_steps.first
     else
       @step.previous_edges.each do |edge|
         return edge.previous_step if edge.follow?(user = current_user)
       end
+    end
+
+    #Only after checking everything else can we say that this is the answer
+    if @step.previous_edges[0].button_text
+      return @step.previous_steps.first
     end
 
   end
@@ -52,7 +52,7 @@ class Step < ActiveRecord::Base
       return @step.previous_steps
     else
       @step.previous_edges.each do |edge|
-        return edge.previous_step if edge.follow?(user = current_user)
+        return edge.next_step if edge.follow?(user = current_user)
       end
     end
 

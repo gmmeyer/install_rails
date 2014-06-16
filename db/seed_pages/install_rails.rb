@@ -1,7 +1,34 @@
-step_content = StepContent.find_by(title: "Install Rails")
+def install_rails
+  <<-HTML
+    <h1>Install Rails</h1>
+    <ol>
+      <li>
+        In your terminal type
+      </li>
+      <pre><code>gem install rails --no-ri --no-rdoc</code></pre>
+      <li>
+        To verify your installation, in your terminal type
+      </li>
+        <pre><code>rails --version</code></pre>
+        <p>Approximate expected result</p>
+        <pre><code>Rails 4.0.x</code></pre>
+    </ol>
+    <div class="row">
+        <div class="col-sm-12 note">
+          <h3>Notes:</h3>
+          <ul>
+            <li>This will install Rails and may take a while.</li>
+            <li>If Rails cannot install, try running the code below and then restarting your computer:
+              <pre><code>brew install apple-gcc42</code></pre>
 
-previous_steps = Step.joins(:step_content).where("step_contents.title = 'Install RVM and Ruby' OR step_contents.title = 'Find Git Bash'")
-
-previous_steps.each do |step|
-  Step.create(operating_system_id: step.operating_system_id, step_content_id: step_content.id, previous_step_id: step.id)
+              <p>If you are still stuck, try:
+                <pre><code>sudo xcodebuild -license
+  sudo port upgrade outdated
+  rvm reinstall 2.0.0</pre></code>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+  HTML
 end
