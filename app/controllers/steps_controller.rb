@@ -18,9 +18,9 @@ class StepsController < ApplicationController
   def show
     @step = Step.includes([:previous_steps, :next_edges, :previous_edges]).includes(next_edges: :next_step).find_by(permalink: params[:id])
 
-    @next_edges = @step.get_next_edges(user = current_user)
-    @next_steps = @step.get_next_steps(user = current_user)
-    @previous_step = @step.get_previous_step(user = current_user)
+    @next_edges = @step.get_next_edges(current_user)
+    @next_steps = @step.get_next_steps(current_user)
+    @previous_step = @step.get_previous_step(current_user)
 
     if @step.first_step?
       @mac = @step.next_edges.includes(:next_step).find_by(button_text: "Mac")

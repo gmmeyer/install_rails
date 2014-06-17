@@ -21,23 +21,27 @@ class Step < ActiveRecord::Base
   end
 
   def first_step?
-    self.first_step
+    !!self.first_step
   end
 
   #replace these with scopes
-  def get_previous_step(user = nil)
-    self.previous_edges.includes(:previous_step).where("single_edge = ? or (os = ? and os_version = ?) or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version).map{|edge| edge.previous_step}
-    end
+  def get_previous_step(user)
+    return if self.first_step?
 
-  def get_next_edges(user = nil)
-    if self.save_user_choice
-      self.next_edges.includes(:next_step).where("single_edge = ? or os = ? or os_version = ? or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
-    else
-      self.next_edges.includes(:next_step).where("single_edge = ? or (os = ? and os_version = ?) or rails_version = ? or ruby_version = ? ", true, user.os, user.os_version, user.ruby_version, user.rails_version)
+    self.previous_edges.includes(:previous_step) do |edge|
+      return edge.previous_step if edge.follow?(user = user)
     end
   end
 
-  def get_next_steps(user = nil)
+  def get_next_edges(user)
+    edges = []
+    self.next_edges.includes(:next_step).each do |edge|
+      edges << edge if edge.follow?(user = user)
+    end
+    edges
+  end
+
+  def get_next_steps(user)
     edges = get_next_edges(user = user)
     edges.map{|edge| edge.next_step}
   end

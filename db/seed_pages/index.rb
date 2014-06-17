@@ -36,25 +36,25 @@ Edge.create(previous_step_id: choose_os_step.id, next_step_id: linux_and_other_s
 rails_installer_step = Step.create(title: "Railsinstaller", content: rails_installer)
 install_xcode_step = Step.create(title: "Install XCode", content: install_xcode)
 
-Edge.create(previous_step_id: choose_os_version_step.id, next_step_id:  install_xcode_step.id, os: "Mac", os_version: "10.9", button_text: "10.9")
-Edge.create(previous_step_id: choose_os_version_step.id, next_step_id: rails_installer_step.id, os: "Mac", os_version: "10.8", button_text: "10.8")
-Edge.create(previous_step_id: choose_os_version_step.id, next_step_id: rails_installer_step.id, os: "Mac", os_version: "10.7", button_text: "10.7")
-Edge.create(previous_step_id: choose_os_version_step.id, next_step_id: rails_installer_step.id, os: "Mac", os_version: "10.6", button_text: "10.6")
-Edge.create(previous_step_id: choose_os_version_step.id, next_step_id:  install_xcode_step.id, os: "Mac", os_version: "10.5", button_text: "10.5 or below")
+Edge.create(previous_step_id: choose_os_version_step.id, next_step_id:  install_xcode_step.id, os_version: "10.9", button_text: "10.9")
+Edge.create(previous_step_id: choose_os_version_step.id, next_step_id: rails_installer_step.id, os_version: "10.8", button_text: "10.8")
+Edge.create(previous_step_id: choose_os_version_step.id, next_step_id: rails_installer_step.id, os_version: "10.7", button_text: "10.7")
+Edge.create(previous_step_id: choose_os_version_step.id, next_step_id: rails_installer_step.id, os_version: "10.6", button_text: "10.6")
+Edge.create(previous_step_id: choose_os_version_step.id, next_step_id:  install_xcode_step.id, os_version: "10.5", button_text: "10.5 or below")
 
 find_the_command_line_step = Step.create(title: "Find The Command Line", content: find_the_command_line)
 
-Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os: "Mac", os_version: "10.9")
-Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os: "Mac", os_version: "10.5")
-Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os: "Mac", os_version: "10.8")
-Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os: "Mac", os_version: "10.6")
-Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os: "Mac", os_version: "10.7")
+Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.9")
+Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.5")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.8")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.6")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.7")
 
 verify_ruby_version_step = Step.create(title: "Verify Ruby Version", content: verify_ruby_version, save_user_choice: true, prompt: "What version of Ruby do you have?")
 
-Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os: "Mac", os_version: "10.8")
-Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os: "Mac", os_version: "10.7")
-Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os: "Mac", os_version: "10.7")
+Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.8")
+Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.7")
+Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.7")
 
 update_ruby_step = Step.create(title: "Update Ruby", content: update_ruby)
 
@@ -71,8 +71,8 @@ update_rails_step = Step.create(title: "Update Rails", content: update_rails)
 
 install_homebrew_step = Step.create(title: "Install Homebrew", content: install_homebrew)
 
-Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: install_homebrew_step.id, os: "Mac", os_version: "10.9")
-Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: install_homebrew_step.id, os: "Mac", os_version: "10.5")
+Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: install_homebrew_step.id, os_version: "10.9")
+Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: install_homebrew_step.id, os_version: "10.5")
 
 install_git_step = Step.create(title: "Install Git", content: install_git)
 
@@ -80,8 +80,8 @@ Edge.create(previous_step_id: install_homebrew_step.id, next_step_id: install_gi
 
 configure_git_step = Step.create(title: "Configure Git", content: configure_git)
 
-Edge.create(next_step_id: configure_git_step.id, previous_step_id: install_git_step.id, os: "Mac", os_version: "10.9")
-Edge.create(next_step_id: configure_git_step.id, previous_step_id: install_git_step.id, os: "Mac", os_version: "10.5")
+Edge.create(next_step_id: configure_git_step.id, previous_step_id: install_git_step.id, os_version: "10.9")
+Edge.create(next_step_id: configure_git_step.id, previous_step_id: install_git_step.id, os_version: "10.5")
 
 Edge.create(previous_step_id: verify_rails_version_step.id, next_step_id: configure_git_step.id, rails_version: "4.0", button_text: 4.0)
 Edge.create(previous_step_id: update_rails_step.id, next_step_id: configure_git_step.id, rails_version: "3.2", button_text: "3.2")
@@ -129,9 +129,9 @@ Edge.create(previous_step_id: sublime_text_step.id, next_step_id: create_your_fi
 
 see_it_live_step = Step.create(title: "See It Live", content: see_it_live)
 
-Edge.create(previous_step_id: create_your_first_app_step.id, next_step_id: see_it_live_step.id)
+Edge.create(previous_step_id: create_your_first_app_step.id, next_step_id: see_it_live_step.id, single_edge: true)
 
 
 congratulations_step = Step.create(title: "Congratulations", content: congrats, final_step: true, mixpanel: "Congratulations")
 
-Edge.create(previous_step_id: create_your_first_app_step.id, next_step_id: congratulations_step.id)
+Edge.create(previous_step_id: see_it_live_step.id, next_step_id: congratulations_step.id, single_edge: true)
