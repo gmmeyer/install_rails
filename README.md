@@ -30,4 +30,4 @@ Otherwise, it's basically done.
 * Remove all of the old steps
 * JS and CSS up the admin pages so that they are much easier and nicer to use.
 * Images should be handled by AWS.
-* Images need to be added through the admin section manually. Just the Url needs to be changed. There is an images page that is available to allow you to do this.
+* Images need to be added through the admin section manually. Just the Url needs to be changed. There is an images page that is available to allow you to see all of the image assets along with their links at /images.
