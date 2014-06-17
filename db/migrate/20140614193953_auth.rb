@@ -4,5 +4,6 @@ class Auth < ActiveRecord::Migration
     add_column :users, :password_digest, :string
     add_column :users, :token, :string
     add_column :users, :admin, :boolean
+    add_column :users, :unchanged_password, :boolean
   end
 end

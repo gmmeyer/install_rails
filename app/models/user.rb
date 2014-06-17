@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    admin
+    !!admin
   end
 
   def guest?

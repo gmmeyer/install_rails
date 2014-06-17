@@ -7,6 +7,8 @@ InstallRails::Application.routes.draw do
   get 'admin', to: 'welcome#admin'
   post 'edges/:id/save-user-choice', to: 'edges#save_user_choice', as: "save_user_choice"
 
+  resources :users
+
   resources :steps do
     resources :edges
   end

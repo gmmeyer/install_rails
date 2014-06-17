@@ -1,0 +1,13 @@
+  <%= token_tag "nil" %>
+
+  <label for="step-title">Step Title</label>
+  <input type="text" id="step-title" name="step[title]" value="<%= step.content %>">
+
+  <label for="step-content">Step Content</label>
+  <textarea id="step-content" name="step[content]" cols="30" rows="10" multiline="true"><%= step.content %></textarea>
+
+  <label for="step-trouble">Trouble</label>
+  <textarea id="step-trouble" name="step[trouble]" cols="30" rows="10" multiline="true"><%= step.trouble %></textarea>
+
+<label for="mixpanel">Mixpanel</label>
+<input type="text" id="mixpanel" name="step[mixpanel]" value="<%= step.mixpanel %>">

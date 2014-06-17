@@ -6,6 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.new(username: 'admin', password: 'password', password_confirmation: 'password', admin: true)
+User.new(username: 'admin', password: 'password', password_confirmation: 'password', admin: true, unchanged_password: true)
 
 require_relative("seed_pages/index")

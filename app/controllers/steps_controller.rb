@@ -4,6 +4,7 @@ class StepsController < ApplicationController
 
   def index
     @steps = Steps.all
+    unauthorized! if cannot? :manage, @step
 
     render :index
   end
