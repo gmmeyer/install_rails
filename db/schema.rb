@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140614193953) do
     t.string   "password_digest"
     t.string   "token"
     t.boolean  "admin"
+    t.boolean  "unchanged_password"
   end
 
 end

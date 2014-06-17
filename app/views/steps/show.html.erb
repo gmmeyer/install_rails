@@ -57,8 +57,6 @@
    </section>
 <% end %>
 
-<% #fail %>
-
 <div id="trouble" class="collapse out note">
   <% if @step.try('trouble') %>
     <%= @step.trouble.html_safe %>
