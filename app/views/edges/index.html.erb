@@ -10,7 +10,7 @@
 </h3>
 <% @step.next_edges.each do |edge| %>
   <p>
-    <%=link_to edge.next_step.title, step_edges_url(edge.next_step) %>, os: <%= edge.os %>, os_version: <%= edge.os_version %>, rails_version: <%= edge.rails_version %>, ruby_version: <%= edge.ruby_version %>
+    <%=link_to edge.next_step.title, step_edges_url(edge.next_step) %>, os: <%= edge.os %>, os_version: <%= edge.os_version %>, rails_version: <%= edge.rails_version %>, ruby_version: <%= edge.ruby_version %> <%= button_to "Delete", edge_url(edge), class: "option" %>
   </p>
 
 <% end %>
@@ -28,7 +28,7 @@
 
 <% @step.previous_edges.each do |edge| %>
   <p>
-    <%= link_to edge.previous_step.title, step_edges_url(edge.previous_step) %>, os: <%= edge.os %>, os_version: <%= edge.os_version %>, rails_version: <%= edge.rails_version %>, ruby_version: <%= edge.ruby_version %>
+    <%= link_to edge.previous_step.title, step_edges_url(edge.previous_step) %>, os: <%= edge.os %>, os_version: <%= edge.os_version %>, rails_version: <%= edge.rails_version %>, ruby_version: <%= edge.ruby_version %> <%= button_to "Delete", edge_url(edge), class: "option" %>
   </p>
 <% end %>
 
