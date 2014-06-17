@@ -3,7 +3,7 @@ class StepsController < ApplicationController
   before_filter :signed_in_user, only: [:show]
 
   def index
-    @steps = Steps.all
+    @steps = Step.all
     authorize! :manage, @step
 
     render :index

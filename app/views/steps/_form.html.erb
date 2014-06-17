@@ -1,21 +1,41 @@
   <%= token_tag nil %>
 
   <p>
-  <label for="step-title">Step Title</label>
-  <input type="text" id="step-title" name="step[title]" value="<%= step.content %>">
+    <p>
+      <label for="step-title">Step Title:</label>
+    </p>
+    <p>
+      <input type="text" id="step-title" name="step[title]" value="<%= step.content %>">
+    </p>
   </p>
 
   <p>
-  <label for="step-content">Step Content</label>
-  <textarea id="step-content" name="step[content]" cols="30" rows="10" multiline="true"><%= step.content %></textarea>
+    <p>
+      <label for="step-content">Step Content:</label>
+    </p>
+    <p>
+      <textarea id="step-content" name="step[content]" cols="30" rows="10" multiline="true"><%= step.content %></textarea>
+    </p>
   </p>
 
   <p>
-  <label for="step-trouble">Trouble</label>
-  <textarea id="step-trouble" name="step[trouble]" cols="30" rows="10" multiline="true"><%= step.trouble %></textarea>
+    <p>
+      <label for="step-trouble">Trouble:</label>
+    </p>
+    <p>
+      <textarea id="step-trouble" name="step[trouble]" cols="30" rows="10" multiline="true"><%= step.trouble %></textarea>
+    </p>
   </p>
 
 <p>
-<label for="mixpanel">Mixpanel</label>
-<input type="text" id="mixpanel" name="step[mixpanel]" value="<%= step.mixpanel %>">
+  <p>
+    <label for="mixpanel">Mixpanel:</label>
+  </p>
+  <p>
+    <input type="text" id="mixpanel" name="step[mixpanel]" value="<%= step.mixpanel %>">
+  </p>
+</p>
+
+<p>
+  <input type="submit" value="Submit!">
 </p>

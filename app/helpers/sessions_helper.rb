@@ -31,7 +31,7 @@ module SessionsHelper
   def create_guest_user
     @user = User.new_guest
     @user.save
-    sign_in @user
+    login! @user
   end
 
 end

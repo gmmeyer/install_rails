@@ -1,5 +1,20 @@
 <% @steps.each do |step| %>
+  <p class="prompt">
 
-  <%=link_to step.title, step_edges_url(step) %> <%= button_to "Delete", steps_url, method: "delete" %> <%= button_to "Edit", edit_step_url(step) %>
+    <%=link_to step.title, step_edges_url(step) %> 
+    <%= link_to "Edit", edit_step_url(step), style: "display:inline;", class: "option" %> 
+    <p>
+    
+      <form action="steps_url" method="post" class="prompt" style="display:inline;">
+        <%= token_tag nil %>
+        <input type="hidden" name="_method" value="delete">
+        <p>
+          <input type="submit" style="display:inline;" class="option" value="Delete">
+        </p>
+      </form>
+
+    </p>
+
+  </p>
 
 <% end %>

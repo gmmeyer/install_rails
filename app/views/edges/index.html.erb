@@ -1,27 +1,40 @@
-<%= @step.title %>
-<%= @step.content %>
+<h2>  
+  <%= @step.title %>
+</h2>
+<p>
+  <%= @step.content %>
+</p>
 
-Next Steps
+<h3>
+  Next Steps
+</h3>
 <% @step.next_edges.each do |edge| %>
-
-  <%= edge.next_step.title %>
+  <p>
+    <%=link_to edge.next_step.title, step_edges_url(edge.next_step) %>, os: <%= edge.os %>, os_version: <%= edge.os_version %>, rails_version: <%= edge.rails_version %>, ruby_version: <%= edge.ruby_version %>
+  </p>
 
 <% end %>
 
-New Next Step
+<h4>
+  New Next Step
+</h4>
 <form action="">
   
 </form>
 
-Previous Steps
+<h3>
+  Previous Steps
+</h3>
 
 <% @step.previous_edges.each do |edge| %>
-
-  <%= edge.previous_step.title %> <%= button_to  %>
-
+  <p>
+    <%= link_to edge.previous_step.title, step_edges_url(edge.previous_step) %>, os: <%= edge.os %>, os_version: <%= edge.os_version %>, rails_version: <%= edge.rails_version %>, ruby_version: <%= edge.ruby_version %>
+  </p>
 <% end %>
 
-New Previous Step
+<h4>
+  New Previous Step
+</h4>
 
 <form action="">
   
