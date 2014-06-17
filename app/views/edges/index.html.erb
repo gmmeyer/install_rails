@@ -19,7 +19,8 @@
   New Next Step
 </h4>
 <form action="">
-  
+  <label for="step">Next Step:</label>
+  <%= render partial: "form", locals: {edge: edge, steps: @steps, step: @step} %>  
 </form>
 
 <h3>
@@ -37,5 +38,6 @@
 </h4>
 
 <form action="">
-  
+  <label for="step">Previous Step:</label>
+  <%= render partial: "form", locals: {edge: edge, steps: @steps, step: @step} %>  
 </form>

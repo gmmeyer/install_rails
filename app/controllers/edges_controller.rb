@@ -16,16 +16,19 @@ class EdgesController < ApplicationController
 
   def index
     @step = Step.includes(next_edges: :next_step).includes(previous_edges: :previous_step).find_by(permalink: params[:step_id])
+    @steps = Step.all
   end
 
   def create
     @edge = Edge.new(edge_params)
     authorize! :edit, @edge
+    @edge.send(params[:association] + '=', params[:association_value])
+
     if @edge.save
-      redirect_to #admin_step_url
+      redirect_to step_edges_url(params[:current_step])
     else
       flash[:errors] = @edge.errors.full_messages
-      redirect_to #admin_step_url
+      redirect_to step_edges_url(params[:current_step])
     end
   end
 
@@ -37,7 +40,7 @@ class EdgesController < ApplicationController
     @edge = Edge.find_by(params[:id])
     authorize! :edit, @edge
     @edge.destroy
-    redirect_to #admin_step_url
+    redirect_to step_edges_url(params[:current_step])
   end
 
   private
