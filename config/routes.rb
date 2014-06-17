@@ -15,5 +15,6 @@ InstallRails::Application.routes.draw do
 
   get 'test', to: 'welcome#test'
   delete 'signout', to: 'sessions#destroy'
+  get 'images', to: 'welcome#images'
 
 end
