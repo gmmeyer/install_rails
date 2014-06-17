@@ -25,12 +25,20 @@ class Step < ActiveRecord::Base
   end
 
   #replace these with scopes
+  def get_previous_edges(user)
+    return if self.first_step?
+    edges = []
+    self.previous_edges.includes(:previous_step).each do |edge|
+      edges << edge if edge.follow?(user = user)
+    end
+    edges
+  end
+
   def get_previous_step(user)
     return if self.first_step?
+    edges = get_previous_edges(user = user)
 
-    self.previous_edges.includes(:previous_step) do |edge|
-      return edge.previous_step if edge.follow?(user = user)
-    end
+    edges.map{|edge| edge.previous_step}
   end
 
   def get_next_edges(user)
@@ -38,11 +46,17 @@ class Step < ActiveRecord::Base
     self.next_edges.includes(:next_step).each do |edge|
       edges << edge if edge.follow?(user = user)
     end
+
+    if self.save_user_choice
+      edges = self.next_edges
+    end
+
     edges
   end
 
   def get_next_steps(user)
     edges = get_next_edges(user = user)
+
     edges.map{|edge| edge.next_step}
   end
 

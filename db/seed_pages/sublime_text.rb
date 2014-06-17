@@ -1,5 +1,5 @@
 def sublime_text
-  <<-HTML
+  <<-"HTML"
 
     <h1>Install Sublime Text</h1>
         <p>As a developer, you’ll be using your text editor quite often. A text editor is a simple program that lets you write text <i>(and by text we mean... code)</i>. Our preferred text editor is <strong>Sublime Text</strong>.</p>
@@ -13,7 +13,7 @@ def sublime_text
       </li>
       <li>
         Once the file has fully downloaded, double-click it and a new window will open. One a Mac: drag and drop <strong>Sublime Text 2</strong> into your <strong>Applications</strong> folder.
-        <img src="mac_steps/applications_folder.png" class="list-image">
+        #{image_tag "mac_steps/applications_folder.png", class: "list-image"}
       </li>
     </ol>
 

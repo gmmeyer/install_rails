@@ -1,5 +1,5 @@
 def find_the_command_line
-  <<-HTML
+  <<-"HTML"
       <div class="center">
         <small>
           Now we're going to explore something called:
@@ -19,16 +19,16 @@ def find_the_command_line
         <ol>
           <li>
             On a Mac, we can find the Terminal by opening Spotlight and type '<strong>Terminal</strong>' <i><br>(the little <i class="icon-search"></i> icon on the top right corner of your Mac)</i><br>
-            <img src="mac_steps/spotlight_search_for_terminal.png">
+            #{image_tag "mac_steps/spotlight_search_for_terminal.png"}
           </li>
           <li>
             Alternatively, you could look in your '<strong>Applications</strong>' folder
             <br>It's under '<strong>Applications -> Utilities -> Terminal</strong>'
-            <img src="mac_steps/applications_utilities_terminal.png">
+            #{image_tag "mac_steps/applications_utilities_terminal.png"}
           </li>
           <li>
             Once you open it, your Terminal should look something like this <i>(don't freak out)</i>:
-            <img src="mac_steps/teminal.png">
+            #{image_tag "mac_steps/terminal.png"}
           </li>
 
             <div class="row">
@@ -39,7 +39,7 @@ def find_the_command_line
                 '<strong>Options > Keep in Dock</strong>'
                 </div>
                 <div class="col-sm-6">
-                  <img src="sam.png">
+                  #{image_tag "sam.png"}
                 </div>
             </div>
 

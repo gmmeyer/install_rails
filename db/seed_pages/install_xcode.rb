@@ -1,10 +1,10 @@
 def install_xcode
-  <<-HTML
+  <<-"HTML"
     <h1>Install Xcode</h1>
     <ol>
       <li>
         Open the Mac App Store. This can be found in your Applications Folder.
-        <img src="xcode_finder.png" class="list-image">
+        #{image_tag "xcode_finder.png", class: "list-image"}
       </li>
       <li>
         Search for “Xcode” and click the “Install” button
@@ -16,10 +16,10 @@ def install_xcode
       </li>
 
       <li>Open Xcode. In the menu bar click on "Xcode" then select "Preferences"
-        <img src="xcode_preferences.png" class="list-image">
+      #{image_tag "xcode_preferences.png", class: "list-image"}
       </li>
       <li> Click the "Locations” tab and verify your version below <small>
-        <img src="xcode_command_line_tool.png" class="list-image">
+      #{image_tag "xcode_command_line_tool.png", class: "list-image"}
       </li>
     </ol>
   HTML

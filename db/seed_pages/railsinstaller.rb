@@ -1,5 +1,5 @@
 def rails_installer
-  <<-HTML
+  <<-"HTML"
       <h1>Time to install Rails!</h1>
       <ol>
         <li>
@@ -10,7 +10,7 @@ def rails_installer
 
           <div class="center">
           <a href="http://www.railsinstaller.com" alt="RailsInstaller" target="_blank">
-            <img src="railsinstaller-mac-windows.jpg" alt="RailsInstaller">
+            #{image_tag "railsinstaller-mac-windows.jpg", alt: "RailsInstaller"}
           </a>
 
           </div>
@@ -31,11 +31,11 @@ def rails_installer
         </li>
         <li>
           <small>Once the file has fully downloaded, double-click it to open the installer wizard.</small>
-          <img src="mac_steps/installer_wizard.png" alt="RailsInstaller Wizard">
+          #{image_tag "mac_steps/installer_wizard.png", alt: "RailsInstaller Wizard"}
         </li>
         <li>
           Click '<strong>Next</strong>' for each step - it's okay to accept the default settings.
-          <img src="mac_steps/rails_one_click.png" alt="">
+          #{image_tag "mac_steps/rails_one_click.png"}
         </li>
         <li>
           When prompted, enter your <strong>name</strong> and <strong>email address</strong><br><small>(don't worry, no one will see this email or spam you, this is purely for setup purposes).</small>
@@ -47,7 +47,7 @@ def rails_installer
 end
 
 def rails_installer_windows
-  <<-HTML
+  <<-"HTML"
       <h1>Time to install Rails!</h1>
       <ol>
         <li>
@@ -58,7 +58,7 @@ def rails_installer_windows
 
           <div class="center">
           <a href="http://www.railsinstaller.com" alt="RailsInstaller" target="_blank">
-            <img src="railsinstaller-mac-windows.jpg" alt="RailsInstaller">
+            #{image_tag "railsinstaller-mac-windows.jpg", alt: "RailsInstaller"}
           </a>
 
           </div>
@@ -79,11 +79,11 @@ def rails_installer_windows
         </li>
         <li>
           <small>Once the file has fully downloaded, double-click it to open the installer wizard.</small>
-          <img src="mac_steps/installer_wizard.png" alt="RailsInstaller Wizard">
+          #{image_tag "mac_steps/installer_wizard.png", alt: "RailsInstaller Wizard"}
         </li>
         <li>
           Click '<strong>Next</strong>' for each step - it's okay to accept the default settings.
-          <img src="mac_steps/rails_one_click.png" alt="">
+          #{image_tag "mac_steps/rails_one_click.png"}
         </li>
         <li>
           When prompted, enter your <strong>name</strong> and <strong>email address</strong><br><small>(don't worry, no one will see this email or spam you, this is purely for setup purposes).</small>

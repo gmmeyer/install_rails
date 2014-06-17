@@ -46,28 +46,30 @@ find_the_command_line_step = Step.create(title: "Find The Command Line", content
 
 Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.9")
 Edge.create(previous_step_id: install_xcode_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.5")
+
 Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.8")
-Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.6")
 Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.7")
+Edge.create(previous_step_id: rails_installer_step.id, next_step_id: find_the_command_line_step.id, os_version: "10.6")
 
 verify_ruby_version_step = Step.create(title: "Verify Ruby Version", content: verify_ruby_version, save_user_choice: true, prompt: "What version of Ruby do you have?")
 
 Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.8")
 Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.7")
-Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.7")
+Edge.create(previous_step_id: find_the_command_line_step.id, next_step_id: verify_ruby_version_step.id, os_version: "10.6")
 
 update_ruby_step = Step.create(title: "Update Ruby", content: update_ruby)
 
 verify_rails_version_step = Step.create(title: "Verify Rails Version", content: verify_rails_version, save_user_choice: true, prompt: "What version of Rails do you have?")
 
+Edge.create(previous_step_id: verify_ruby_version_step.id, next_step_id: verify_rails_version_step.id, button_text: "2.0", ruby_version: "2.0")
 Edge.create(previous_step_id: verify_ruby_version_step.id, next_step_id: update_ruby_step.id, button_text: "1.9", ruby_version: "1.9")
 Edge.create(previous_step_id: verify_ruby_version_step.id,next_step_id: update_ruby_step.id, button_text: "1.8", ruby_version: "1.8")
-Edge.create(previous_step_id: verify_ruby_version_step.id, next_step_id: verify_rails_version_step.id, button_text: "2.0", ruby_version: "2.0")
 
 Edge.create(previous_step_id: update_ruby_step.id, next_step_id: verify_rails_version_step.id, ruby_version: "1.9")
 Edge.create(previous_step_id: update_ruby_step.id, next_step_id: verify_rails_version_step.id, ruby_version: "1.8")
 
 update_rails_step = Step.create(title: "Update Rails", content: update_rails)
+
 
 install_homebrew_step = Step.create(title: "Install Homebrew", content: install_homebrew)
 
@@ -80,20 +82,23 @@ Edge.create(previous_step_id: install_homebrew_step.id, next_step_id: install_gi
 
 configure_git_step = Step.create(title: "Configure Git", content: configure_git)
 
+
 Edge.create(next_step_id: configure_git_step.id, previous_step_id: install_git_step.id, os_version: "10.9")
 Edge.create(next_step_id: configure_git_step.id, previous_step_id: install_git_step.id, os_version: "10.5")
 
 Edge.create(previous_step_id: verify_rails_version_step.id, next_step_id: configure_git_step.id, rails_version: "4.0", button_text: 4.0)
-Edge.create(previous_step_id: update_rails_step.id, next_step_id: configure_git_step.id, rails_version: "3.2", button_text: "3.2")
+Edge.create(previous_step_id: verify_rails_version_step.id, next_step_id: update_rails_step.id, rails_version: "3.2", button_text: "3.2")
+
+Edge.create(previous_step_id: update_rails_step.id, next_step_id: configure_git_step.id, rails_version: "3.2")
 
 install_rails_step = Step.create(title: "Install Rails", content: install_rails)
 
-Edge.create(previous_step_id: update_rails_step.id, next_step_id: install_rails_step.id, rails_version: "Nothing! I get an error!", button_text: "Nothing! I get an error!")
+Edge.create(previous_step_id: verify_rails_version_step.id, next_step_id: install_rails_step.id, rails_version: "Nothing! I get an error!", button_text: "Nothing! I get an error!")
 
 Edge.create(previous_step_id: install_rails_step.id, next_step_id: configure_git_step.id, rails_version: "Nothing! I get an error!")
 
 find_git_bash_step = Step.create(title: "Find Git Bash", content: find_git_bash)
-Edge.create(previous_step_id: rails_installer_windows_step.id, next_step_id: find_git_bash_step.id)
+Edge.create(previous_step_id: rails_installer_windows_step.id, next_step_id: find_git_bash_step.id, single_edge: true)
 
 Edge.create(previous_step_id: find_git_bash_step.id, next_step_id: install_rails_step.id, os: "Windows")
 
@@ -114,9 +119,9 @@ sublime_text_step = Step.create(title: 'Sublime Text', content: sublime_text)
 Edge.create(previous_step_id: install_rails_step.id, next_step_id: sublime_text_step.id, os_version: "10.9")
 Edge.create(previous_step_id: install_rails_step.id, next_step_id: sublime_text_step.id, os: "Windows")
 
-Edge.create(previous_step_id: install_rails_step.id, next_step_id: sublime_text_step.id, os_version: "10.8")
-Edge.create(previous_step_id: install_rails_step.id, next_step_id: sublime_text_step.id, os_version: "10.7")
-Edge.create(previous_step_id: install_rails_step.id, next_step_id: sublime_text_step.id, os_version: "10.6")
+Edge.create(previous_step_id: configure_git_step.id, next_step_id: sublime_text_step.id, os_version: "10.8")
+Edge.create(previous_step_id: configure_git_step.id, next_step_id: sublime_text_step.id, os_version: "10.7")
+Edge.create(previous_step_id: configure_git_step.id, next_step_id: sublime_text_step.id, os_version: "10.6")
 
 create_your_first_app_step = Step.create(title: "Create Your First App", content: create_your_first_app)
 

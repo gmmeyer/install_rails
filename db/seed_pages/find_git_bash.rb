@@ -1,5 +1,5 @@
 def find_git_bash
-  <<-HTML
+  <<-"HTML"
      <div class="center">
         <small>
       Now we're going to explore something called:
@@ -19,7 +19,7 @@ def find_git_bash
         <p>Open up the <strong>Git Bash</strong> application from your RailsInstaller folder.</p>
 
         <p>Having trouble finding it? Look under the "Start" menu."</p>
-          <img src="windows-gitbash.png">
+          #{image_tag "windows-gitbash.png"}
 
       </li>
     </ol>

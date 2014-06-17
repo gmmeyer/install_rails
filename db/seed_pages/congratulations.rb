@@ -1,16 +1,15 @@
 def congrats
-  <<-HTML
+  <<-"HTML"
 
   <section class="instructions">
     <h1>
       Congratulations!
     </h1>
-      <img src="mac_steps/congrats_sam.png" class="congrats-sam" style="display:inline">
-
+      #{image_tag "mac_steps/congrats_sam.png", class: "congrats_sam", style: "display:inline;"}
     <h2>What's next?</h2>
     <ol>
       <li>
-        <img src="omr_logo.png" style="display:inline; padding: 0;"> <strong><a href="http://onemonthrails.com/?utm_source=installrails" target="_blank">One Month Rails</a></strong> helps you build your first app in less than one month!
+        #{image_tag "omr_logo.png", style: "display:inline; padding: 0;"} <strong><a href="http://onemonthrails.com/?utm_source=installrails" target="_blank">One Month Rails</a></strong> helps you build your first app in less than one month!
       </li>
       <li><strong><a href="http://onemonthrails.com/?utm_source=installrails" target="_blank">Enroll Now</a></strong> and get started learning Rails.
       </li>

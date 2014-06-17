@@ -1,5 +1,5 @@
 def create_your_first_app
-  <<-HTML
+  <<-"HTML"
     <h1>Create your first app</h1>
         <p>If you followed all the previous steps correctly, you should be ready to create your first app.</p>
       <ol>
@@ -15,7 +15,7 @@ def create_your_first_app
           We do this so that when we create a new application, we'll be able to see it in our desktop and access it more easily.
         </div>
         <div class="col-sm-6">
-            <img src="sam.png">
+            #{image_tag "sam.png"}
          </div>
       </div>
 
@@ -57,7 +57,7 @@ def create_your_first_windows_app
           We do this so that when we create a new application, we'll be able to see it in our desktop and access it more easily.
         </div>
         <div class="col-sm-6">
-            <img src="sam.png">
+            #{image_tag "sam.png"}
          </div>
       </div>
 

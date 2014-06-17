@@ -5,10 +5,10 @@
 
 <% if @step.final_step? %>
   <section class="prompt center">
-    <%= link_to "Previous Step", step_url(@previous_step), class:"option" %>
+    <%= link_to "Previous Step", step_url(@previous_step.first), class:"option" %>
   </section>
 
-<% elsif @step.first_step %>
+<% elsif @step.first_step? %>
   <section class="center prompt row">
     <div class="apple col-sm-4">
       <%= image_tag("mac_steps/apple.png", class:"choose_your_os") %>
@@ -29,7 +29,7 @@
 
 <% elsif @next_steps.count == 1 %>
   <section class="prompt center">
-    <%= link_to "Previous Step", step_url(@previous_step), class: "option" %>
+    <%= link_to "Previous Step", step_url(@previous_step.first), class: "option" %>
     <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
 
     <%= link_to "Next Step",     step_url(@next_steps.first),     class: "option" %>
@@ -56,6 +56,8 @@
        <button type="button" class="troubleshooting" data-toggle="collapse" data-target="#trouble">Troubleshooting</button>
    </section>
 <% end %>
+
+<% #fail %>
 
 <div id="trouble" class="collapse out note">
   <% if @step.try('trouble') %>
