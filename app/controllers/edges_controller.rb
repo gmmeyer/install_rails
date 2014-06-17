@@ -22,7 +22,9 @@ class EdgesController < ApplicationController
   def create
     @edge = Edge.new(edge_params)
     authorize! :edit, @edge
-    @edge.send(params[:association] + '=', params[:association_value])
+    if params[:association] && params[:association_value]
+      @edge.send(params[:association] + '=', params[:association_value])
+    end
 
     if @edge.save
       redirect_to step_edges_url(params[:current_step])
