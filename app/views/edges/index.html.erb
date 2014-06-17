@@ -1,0 +1,28 @@
+<%= @step.title %>
+<%= @step.content %>
+
+Next Steps
+<% @step.next_edges.each do |edge| %>
+
+  <%= edge.next_step.title %>
+
+<% end %>
+
+New Next Step
+<form action="">
+  
+</form>
+
+Previous Steps
+
+<% @step.previous_edges.each do |edge| %>
+
+  <%= edge.previous_step.title %> <%= button_to  %>
+
+<% end %>
+
+New Previous Step
+
+<form action="">
+  
+</form>
