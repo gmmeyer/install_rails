@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     guest
   end
 
-  def is_password(password)
+  def is_password?(unencrypted_password)
     BCrypt::Password.new(self.password_digest).is_password?(unencrypted_password)
   end
 

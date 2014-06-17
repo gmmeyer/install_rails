@@ -4,14 +4,14 @@ class StepsController < ApplicationController
 
   def index
     @steps = Steps.all
-    unauthorized! if cannot? :manage, @step
+    authorize! :manage, @step
 
     render :index
   end
 
   def new
     @step = Step.new
-    unauthorized! if cannot? :manage, @step
+    authorize! :manage, @step
 
     render :new
   end
@@ -34,12 +34,12 @@ class StepsController < ApplicationController
 
   def edit
     @step = Step.find_by(permalink: params[:id])
-    unauthorized! if cannot? :manage, @step
+    authorize! :manage, @step
   end
 
   def create
     @step = Step.new(step_params)
-    unauthorized! if cannot? :manage, @step
+    authorize! :manage, @step
     if @step.save
       redirect_to #admin thing
     else
@@ -49,7 +49,7 @@ class StepsController < ApplicationController
 
   def update
     @step = Step.find_by(permalink: params[:id])
-    unauthorized! if cannot? :manage, @step
+    authorize! :manage, @step
     if @step.save
       redirect_to #admin page
     else
@@ -60,6 +60,7 @@ class StepsController < ApplicationController
 
   def delete
     @step = Step.find(permalink: params[:id])
+    authorize! :manage, @step
     @step.destroy
     redirect_to #admin page
   end

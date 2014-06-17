@@ -20,7 +20,7 @@ class EdgesController < ApplicationController
 
   def create
     @edge = Edge.new(edge_params)
-    unauthorized! if cannot? :edit, @edge
+    authorize! :edit, @edge
     if @edge.save
       redirect_to #admin_step_url
     else
@@ -30,12 +30,12 @@ class EdgesController < ApplicationController
   end
 
   def update
-    unauthorized! if cannot? :edit, @edge
+    authorize! :edit, @edge
   end
 
   def delete
     @edge = Edge.find_by(params[:id])
-    unauthorized! if cannot? :edit, @edge
+    authorize! :edit, @edge
     @edge.destroy
     redirect_to #admin_step_url
   end

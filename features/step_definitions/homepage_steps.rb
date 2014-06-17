@@ -1,5 +1,6 @@
 Given(/^I am on the homepage$/) do
   visit root_path
+  puts Step.find_by(first_step: true)
 end
 
 When(/^I click "(.*?)"$/) do |button_text|

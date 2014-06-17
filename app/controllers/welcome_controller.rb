@@ -9,12 +9,11 @@ class WelcomeController < ApplicationController
   end
 
   def admin
-    unauthorized! if cannot? :manage, @step
     render :admin
   end
 
   def images
-    unauthorized! if cannot? :manage, @step
+    authorize! :manage, @step
     render :images
   end
 end

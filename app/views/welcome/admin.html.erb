@@ -1,19 +1,30 @@
 <% if current_user && current_user.admin? %>
 
+  <p>
   <% if current_user.unchanged_password %>
     PLEASE CHANGE YOUR PASSWORD FROM THE DEFAULT.    
   <% end %>
+  </p>
 
-  <%= link_to "New Step", new_step_url %>
+  <p>
+    <%= link_to "New Step", new_step_url %>
+  </p>
 
-  <%= link_to "Step List", steps_url %>
+  <p>
+    <%= link_to "Step List", steps_url %>
+  </p>
 
-  <%= link_to "Edit User Info", users_url %>
-
+  <p>
+    <%= link_to "Edit User Info", users_url %>
+  </p>
 <% else %>
 
-  <% link_to "Login", new_sessions_url %>
+  <p>
+    If you did not mean to access this page, you can return to the previous page <%= link_to "here", root_url %>
+  </p>
 
-  If you did not mean to access this page, you can return to the previous page <%= link_to "here", root_url %>
+  <p>
+    <%= link_to "Login Here", new_sessions_url %>
+  </p>
 
 <% end %>
