@@ -1,3 +1,4 @@
+include ActionView::Helpers
 include ActionView::Helpers::AssetTagHelper
 
 require_relative("choose_os")
