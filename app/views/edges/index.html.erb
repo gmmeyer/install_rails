@@ -15,14 +15,15 @@
 
 <% end %>
 
-<h4>
+<h3>
   New Next Step
-</h4>
-<form action="<%= new_step_edge(@step) %>" method="post">
+</h3>
+<form action="<%= step_edges_url(@step) %>" method="post">
   <input type="hidden" name="edge[previous_step_id]" value="<%= @step.id %>">
 
   <label for="step">Next Step:</label>
-  <%= render partial: "form", locals: {edge: @step.next_edges[0], steps: @steps, step: @step} %>  
+  <select name="edge[next_step_id]" id="step">
+  <%= render partial: "form", locals: {edge: @edge, steps: @steps, step: @step} %>  
 </form>
 
 <h3>
@@ -35,13 +36,14 @@
   </p>
 <% end %>
 
-<h4>
+<h3>
   New Previous Step
-</h4>
+</h3>
 
-<form action="<%= new_step_edge(@step) %>">
-  <input type="hidden" name="edge[previous_step_id]" value="<%= @step.id %>">
+<form action="<%= step_edges_url(@step) %>" method="post">
+  <input type="hidden" name="edge[next_step_id]" value="<%= @step.id %>">
 
   <label for="step">Previous Step:</label>
-  <%= render partial: "form", locals: {edge: edge, steps: @steps, step: @step} %>  
+  <select name="edge[previous_step_id]" id="step">
+  <%= render partial: "form", locals: {edge: @edge, steps: @steps, step: @step} %>  
 </form>

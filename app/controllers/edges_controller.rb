@@ -17,6 +17,7 @@ class EdgesController < ApplicationController
   def index
     @step = Step.includes(next_edges: :next_step).includes(previous_edges: :previous_step).find_by(permalink: params[:step_id])
     @steps = Step.all
+    @edge = Edge.new
   end
 
   def create
@@ -24,16 +25,16 @@ class EdgesController < ApplicationController
 
     authorize! :edit, @edge
 
-    if params[:association] && params[:association_value]
+    if params[:association] != '' && params[:association_value] != ''
       @edge.send(params[:association] + '=', params[:association_value])
     end
 
-    if @edge.save
+    # if @edge.save
       redirect_to step_edges_url(params[:step_id])
-    else
-      flash[:errors] = @edge.errors.full_messages
-      redirect_to step_edges_url(params[:step_id])
-    end
+    # else
+    #   flash[:errors] = @edge.errors.full_messages
+    #   redirect_to step_edges_url(params[:step_id])
+    # end
   end
 
   def update
@@ -49,7 +50,7 @@ class EdgesController < ApplicationController
 
   private
   def edge_params
-    params.require(:edge).perrmit(:previous_step_id, 
+    params.require(:edge).permit(:previous_step_id, 
       :next_step_id, :choice, :button_text, :os, :os_version, 
       :rails_version, :ruby_version, :single_edge
       )

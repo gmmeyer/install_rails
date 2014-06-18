@@ -10,10 +10,10 @@ InstallRails::Application.routes.draw do
   resources :users
 
   resources :steps do
-    resources :edges, except: [:update, :destroy]
+    resources :edges, only: [:index, :show, :create]
   end
 
-  resources :edges, only: [:update, :destroy]
+  resources :edges, only: [:update, :destroy, :new]
 
   get 'test', to: 'welcome#test'
   delete 'signout', to: 'sessions#destroy'

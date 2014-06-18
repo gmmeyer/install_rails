@@ -1,30 +1,42 @@
-<%= token_tag nil %>
 
-<select name="edge[previous_step_id]" id="step">
+  <option value=""></option>
   <% steps.each do |s| %>
-    <option value="<%= s.id %>">s.title</option>
+    <option value="<%= s.id %>"><%= s.title %></option>
   <% end %>
 </select>
 
-<label for="button-text">Button Text</label>
-<input type="text" id="button-text" name="edge[button_text]" value="">
+<%= token_tag nil %>
+
+<p>
+  <label for="button-text">Button Text</label>
+  <input type="text" id="button-text" name="edge[button_text]" value="">
+</p>
 
 <p>
   Select only one of the following:
 </p>
 
-<checkbox label="Is it a single edge?" checked="true" unchecked="false" name="edge[single_edge]">
+<p>  
+  <label for="checkbox">Is it a single edge?</label>
+  <input id="checkbox" type="checkbox" name="edge[single_edge]" value="true">
+</p>
+
+<p>
+  or:
+</p>
 
 <label for="association">What association do you want it to have</label>
+
 <select name="association" id="step">
-  <% edge.options.keys do |key| %>
-    <option value="<%= key %>">s.title</option>
+  <option value=""></option>
+  <% edge.options.keys.each do |association| %>
+    <option value="<%= association %>"><%= association %></option>
   <% end %>
 </select>
 
 <label for="association-value">What value should the association have?</label>
 <input type="text" id="association-value" name="association_value" value="">
 
-<input type="hidden" name="current_step" value="step.permalink">
-
-<input type="submit" value="Submit!">
+<p>
+  <input type="submit" value="Submit!">
+</p>
