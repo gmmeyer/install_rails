@@ -67,6 +67,6 @@ class StepsController < ApplicationController
 
   private
   def step_params
-    params.require(:step).permit(:title, :content, :trouble, :mixpanel, :final_step, :first_step, :prompt, :permalink)
+    params.require(:step).permit(:title, :content, :trouble, :mixpanel, :final_step, :first_step, :prompt, :permalink, :save_user_choice)
   end
 end

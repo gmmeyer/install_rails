@@ -14,10 +14,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem "guard-rspec"
   gem "guard-cucumber"
+  gem 'cucumber-rails', require: false
 end
 
 group :test do
-  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
 end
 
